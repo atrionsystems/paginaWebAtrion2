@@ -1,0 +1,726 @@
+/* =========================================================
+  CONFIGURACIÓN GENERAL DEL COMPONENTE
+========================================================= */
+:host {
+  display: block;
+  width: 100%;
+  background: #05050a;
+  color: #ffffff;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+/* =========================================================
+  PÁGINA GENERAL
+========================================================= */
+.contact-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 7% 90px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(126, 87, 255, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(0, 183, 255, 0.08), transparent 26%),
+    linear-gradient(180deg, #040408 0%, #070712 45%, #030306 100%);
+}
+
+/* =========================================================
+  FONDO DECORATIVO
+========================================================= */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 52px 52px;
+  opacity: 0.18;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+.bg-blur {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.blur-1 {
+  width: 260px;
+  height: 260px;
+  top: 90px;
+  left: -40px;
+  background: rgba(126, 87, 255, 0.18);
+}
+
+.blur-2 {
+  width: 320px;
+  height: 320px;
+  bottom: 80px;
+  right: -40px;
+  background: rgba(0, 183, 255, 0.12);
+}
+
+/* =========================================================
+  ENCABEZADO PRINCIPAL
+========================================================= */
+.contact-header {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin-bottom: 52px;
+}
+
+.small-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 117, 255, 0.22);
+  background: rgba(255, 255, 255, 0.03);
+  color: #bdaeff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.small-label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8f6dff;
+  box-shadow: 0 0 14px #8f6dff;
+}
+
+.contact-header h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+}
+
+.contact-header p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+/* =========================================================
+  LAYOUT PRINCIPAL
+========================================================= */
+.contact-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(360px, 0.82fr);
+  gap: 26px;
+  align-items: start;
+}
+
+/* =========================================================
+  PANEL DEL FORMULARIO
+========================================================= */
+.form-panel {
+  position: relative;
+  padding: 30px;
+  border-radius: 28px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025));
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 30px 100px rgba(0,0,0,0.34),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(18px);
+}
+
+.form-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(145, 113, 255, 0.38),
+    rgba(0, 183, 255, 0.12),
+    transparent
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* =========================================================
+  ENCABEZADO INTERNO DEL FORMULARIO
+========================================================= */
+.panel-top {
+  margin-bottom: 24px;
+}
+
+.panel-kicker {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #aa99ff;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.panel-top h2 {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.panel-top p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255,255,255,0.63);
+  line-height: 1.8;
+}
+
+/* =========================================================
+  ESTRUCTURA DEL FORMULARIO
+========================================================= */
+.contact-form {
+  display: block;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 20px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group.full {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.88);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* =========================================================
+  CAMPOS INPUT Y TEXTAREA
+========================================================= */
+.input-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+.input-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(142, 109, 255, 0.12),
+    transparent 40%,
+    rgba(0, 183, 255, 0.06)
+  );
+  opacity: 0;
+  transition: 0.3s ease;
+  pointer-events: none;
+}
+
+.input-shell:hover {
+  border-color: rgba(148, 117, 255, 0.25);
+  background: rgba(255,255,255,0.06);
+}
+
+.input-shell:focus-within {
+  border-color: rgba(148, 117, 255, 0.62);
+  box-shadow: 0 0 0 4px rgba(142, 109, 255, 0.12);
+  background: rgba(255,255,255,0.07);
+}
+
+.input-shell:focus-within::before {
+  opacity: 1;
+}
+
+.input-shell input,
+.input-shell textarea {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-family: inherit;
+}
+
+.input-shell input {
+  height: 56px;
+}
+
+.input-shell textarea {
+  padding: 14px 0;
+  resize: vertical;
+  min-height: 105px;
+}
+
+.input-shell input::placeholder,
+.input-shell textarea::placeholder {
+  color: rgba(255,255,255,0.32);
+}
+
+.textarea-shell {
+  align-items: flex-start;
+  min-height: 118px;
+}
+
+/* =========================================================
+  SELECT PERSONALIZADO PREMIUM
+========================================================= */
+.custom-select {
+  position: relative;
+  width: 100%;
+  min-height: 56px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.custom-select::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(142, 109, 255, 0.12),
+    transparent 40%,
+    rgba(0, 183, 255, 0.06)
+  );
+  opacity: 0;
+  transition: 0.3s ease;
+  pointer-events: none;
+}
+
+.custom-select:hover {
+  border-color: rgba(148, 117, 255, 0.35);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.custom-select.open {
+  border-color: rgba(148, 117, 255, 0.75);
+  box-shadow: 0 0 0 4px rgba(142, 109, 255, 0.12);
+}
+
+.custom-select.open::before {
+  opacity: 1;
+}
+
+.custom-select-value {
+  position: relative;
+  z-index: 2;
+  height: 56px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.custom-select-value.placeholder {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.custom-arrow {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 1.1rem;
+  transition: 0.3s ease;
+}
+
+.custom-select.open .custom-arrow {
+  transform: rotate(180deg);
+  color: #bdaeff;
+}
+
+.custom-options {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  z-index: 80;
+  padding: 10px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(24, 24, 38, 0.98), rgba(10, 10, 18, 0.98));
+  border: 1px solid rgba(148, 117, 255, 0.28);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.55),
+    0 0 45px rgba(126, 87, 255, 0.18);
+  backdrop-filter: blur(18px);
+  animation: dropdownFade 0.25s ease;
+  overflow: hidden;
+}
+
+.custom-options button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.custom-options button:hover {
+  color: #ffffff;
+  background: rgba(142, 109, 255, 0.16);
+  transform: translateX(4px);
+}
+
+.custom-options button.active {
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    rgba(126, 87, 255, 0.38),
+    rgba(42, 201, 255, 0.18)
+  );
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+  BOTÓN PRINCIPAL DEL FORMULARIO
+========================================================= */
+.form-actions {
+  margin-top: 6px;
+}
+
+.primary-btn {
+  min-width: 220px;
+  height: 52px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7d4dff, #2ac9ff);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.35s ease;
+  box-shadow: 0 18px 50px rgba(102, 80, 255, 0.32);
+}
+
+.primary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 60px rgba(102, 80, 255, 0.45);
+}
+
+.primary-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+  COLUMNA DERECHA
+========================================================= */
+.contact-side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* =========================================================
+  TARJETAS DERECHAS
+========================================================= */
+.side-card {
+  width: 100%;
+  padding: 26px;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+}
+
+.process-card {
+  background:
+    linear-gradient(180deg, rgba(126, 87, 255, 0.14), rgba(255,255,255,0.03));
+}
+
+.direct-card {
+  background:
+    radial-gradient(circle at 100% 100%, rgba(0, 183, 255, 0.10), transparent 35%),
+    linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+}
+
+/* =========================================================
+  TEXTO GENERAL DE TARJETAS
+========================================================= */
+.side-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.48);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.side-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.side-card p {
+  margin: 0;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.75;
+}
+
+.side-intro {
+  margin-bottom: 20px !important;
+}
+
+/* =========================================================
+  PASOS DEL PROCESO
+========================================================= */
+.steps {
+  display: grid;
+  gap: 14px;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.step-number {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(142, 109, 255, 0.16);
+  color: #c5b7ff;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.step-content h4 {
+  margin: 2px 0 6px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.step-content p {
+  margin: 0;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* =========================================================
+  NOTA FINAL DEL PROCESO
+========================================================= */
+.process-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.process-note p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.62);
+}
+
+/* =========================================================
+  CORREO DIRECTO
+========================================================= */
+.mail-link {
+  display: inline-block;
+  margin: 18px 0 20px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.28);
+  padding-bottom: 4px;
+  transition: 0.3s ease;
+  width: fit-content;
+}
+
+.mail-link:hover {
+  color: #c5b7ff;
+  border-bottom-color: #c5b7ff;
+}
+
+.secondary-btn {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(142, 109, 255, 0.28);
+}
+
+/* =========================================================
+  NOTA FINAL DEL CORREO DIRECTO
+========================================================= */
+.direct-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.note-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8f6dff;
+  box-shadow: 0 0 16px #8f6dff;
+  flex-shrink: 0;
+}
+
+.direct-note p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.62);
+}
+
+/* =========================================================
+  RESPONSIVE - TABLET
+========================================================= */
+@media (max-width: 1100px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+}
+
+/* =========================================================
+  RESPONSIVE - CELULAR
+========================================================= */
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 100px 20px 70px;
+  }
+
+  .form-panel,
+  .side-card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+
+  .custom-options {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .contact-side {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .step-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .step-number {
+    width: 42px;
+    height: 42px;
+  }
+}

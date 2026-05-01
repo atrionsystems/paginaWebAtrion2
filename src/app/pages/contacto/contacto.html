@@ -1,0 +1,312 @@
+<!-- =========================================================
+  PÁGINA DE CONTACTO - ATRION SYSTEMS
+========================================================= -->
+<section class="contact-page">
+
+  <!-- =========================================================
+    FONDO DECORATIVO
+  ========================================================= -->
+  <div class="bg-blur blur-1"></div>
+  <div class="bg-blur blur-2"></div>
+  <div class="bg-grid"></div>
+
+  <!-- =========================================================
+    ENCABEZADO PRINCIPAL
+  ========================================================= -->
+  <header class="contact-header">
+    <span class="small-label">ATRION SYSTEMS</span>
+
+    <h1>Contáctanos</h1>
+
+    <p>
+      Déjanos tu información y cuéntanos qué necesitas. Nuestro equipo revisará
+      tu solicitud y se pondrá en contacto contigo por correo.
+    </p>
+  </header>
+
+  <!-- =========================================================
+    CONTENIDO PRINCIPAL
+  ========================================================= -->
+  <div class="contact-layout">
+
+    <!-- =========================================================
+      COLUMNA IZQUIERDA - FORMULARIO
+    ========================================================= -->
+    <div class="form-panel">
+
+      <!-- Título interno del formulario -->
+      <div class="panel-top">
+        <span class="panel-kicker">Solicitud de información</span>
+
+        <h2>Cuéntanos tu proyecto</h2>
+
+        <p>
+          Completa el formulario con tus datos. Entre más información nos compartas,
+          mejor podremos entender tu necesidad y brindarte una mejor respuesta.
+        </p>
+      </div>
+
+      <!-- Formulario -->
+      <form class="contact-form" (ngSubmit)="sendRequest()" #contactForm="ngForm">
+
+        <!-- Campo personalizado: motivo de consulta -->
+        <div class="form-group full">
+          <label>Motivo de tu consulta *</label>
+
+          <div
+            class="custom-select"
+            [class.open]="isReasonOpen"
+            (click)="$event.stopPropagation(); toggleReasonDropdown()"
+          >
+            <div class="custom-select-value" [class.placeholder]="!form.reason">
+              <span>{{ form.reason || 'Selecciona una opción' }}</span>
+              <span class="custom-arrow">⌄</span>
+            </div>
+
+            <div class="custom-options" *ngIf="isReasonOpen">
+              <button
+                type="button"
+                *ngFor="let option of reasonOptions"
+                [class.active]="form.reason === option"
+                (click)="selectReason(option); $event.stopPropagation()"
+              >
+                {{ option }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campos principales -->
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="firstName">Nombre *</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                [(ngModel)]="form.firstName"
+                placeholder="Ingresa tu nombre"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Apellido *</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                [(ngModel)]="form.lastName"
+                placeholder="Ingresa tu apellido"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo electrónico *</label>
+            <div class="input-shell">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="form.email"
+                placeholder="ejemplo@correo.com"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono *</label>
+            <div class="input-shell">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                [(ngModel)]="form.phone"
+                placeholder="Tu número de contacto"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="company">Empresa</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="company"
+                name="company"
+                [(ngModel)]="form.company"
+                placeholder="Nombre de la empresa"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="position">Cargo</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="position"
+                name="position"
+                [(ngModel)]="form.position"
+                placeholder="Tu cargo o rol"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">País / Ubicación *</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="location"
+                name="location"
+                [(ngModel)]="form.location"
+                placeholder="Ej. Colombia"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="city">Ciudad</label>
+            <div class="input-shell">
+              <input
+                type="text"
+                id="city"
+                name="city"
+                [(ngModel)]="form.city"
+                placeholder="Ej. Manizales"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Comentario -->
+        <div class="form-group full">
+          <label for="message">Consulta o comentario *</label>
+
+          <div class="input-shell textarea-shell">
+            <textarea
+              id="message"
+              name="message"
+              [(ngModel)]="form.message"
+              rows="5"
+              placeholder="Cuéntanos qué necesitas, qué problema buscas resolver o qué tipo de solución te interesa..."
+              required
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Botón -->
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="primary-btn"
+            [disabled]="!contactForm.valid || !form.reason"
+          >
+            Enviar solicitud
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- =========================================================
+      COLUMNA DERECHA - INFORMACIÓN DE APOYO
+    ========================================================= -->
+    <aside class="contact-side">
+
+      <!-- Tarjeta de proceso -->
+      <div class="side-card process-card">
+        <span class="side-label">Proceso</span>
+
+        <h3>Así trabajamos</h3>
+
+        <p class="side-intro">
+          Una vez recibamos tu solicitud, seguimos un proceso claro para entender
+          tu necesidad y darte una respuesta oportuna.
+        </p>
+
+        <div class="steps">
+
+          <div class="step-item">
+            <div class="step-number">01</div>
+
+            <div class="step-content">
+              <h4>Recibimos tu solicitud</h4>
+              <p>
+                Registramos tu mensaje y lo agendamos para que sea revisado por
+                nuestro equipo.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-number">02</div>
+
+            <div class="step-content">
+              <h4>Analizamos tu necesidad</h4>
+              <p>
+                Revisamos el contexto de tu solicitud, el tipo de solución que buscas
+                y la mejor forma de ayudarte.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-number">03</div>
+
+            <div class="step-content">
+              <h4>Te contactamos por correo</h4>
+              <p>
+                Te respondemos con orientación, próximos pasos y, si aplica, una
+                propuesta inicial de trabajo.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="process-note">
+          <span class="note-dot"></span>
+          <p>Atención clara, profesional y enfocada en tu proyecto.</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta de correo directo -->
+      <div class="side-card direct-card">
+        <span class="side-label">Correo directo</span>
+
+        <h3>Enviar solicitud por correo</h3>
+
+        <p>
+          También puedes escribirnos directamente y contarnos tu necesidad por
+          correo electrónico.
+        </p>
+
+        <a class="mail-link" href="mailto:atrionsystem@gmail.com">
+          atrionsystem@gmail.com
+        </a>
+
+        <button class="secondary-btn" type="button" (click)="openDirectEmail()">
+          Escribir correo ahora
+        </button>
+
+        <div class="direct-note">
+          <span class="note-dot"></span>
+          <p>Respuesta personalizada y atención profesional.</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</section>
