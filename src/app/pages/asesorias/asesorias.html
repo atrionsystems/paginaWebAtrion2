@@ -1,10 +1,21 @@
+<!-- =========================================================
+  PÁGINA ASESORÍAS - ATRION SYSTEMS
+========================================================= -->
 <main class="advisory-page">
+
+  <!-- =========================================================
+    FONDO DECORATIVO
+  ========================================================= -->
   <div class="ambient ambient-1"></div>
   <div class="ambient ambient-2"></div>
   <div class="grid-glow"></div>
 
-  <!-- HERO -->
+  <!-- =========================================================
+    HERO PRINCIPAL
+  ========================================================= -->
   <section class="advisory-hero">
+
+    <!-- Texto principal -->
     <div class="hero-content">
       <div class="eyebrow">
         <span></span>
@@ -24,6 +35,7 @@
       </p>
     </div>
 
+    <!-- Imagen principal -->
     <div class="hero-visual">
       <div class="visual-card main-image">
         <img
@@ -48,10 +60,14 @@
         <p>Diagnóstico y oportunidades digitales</p>
       </div>
     </div>
+
   </section>
 
-  <!-- INTRO -->
+  <!-- =========================================================
+    SECCIÓN INTRODUCTORIA
+  ========================================================= -->
   <section class="intro-section">
+
     <div class="section-header">
       <span class="section-label">Qué hacemos</span>
 
@@ -76,10 +92,14 @@
         <p>{{ item.description }}</p>
       </article>
     </div>
+
   </section>
 
-  <!-- SERVICES -->
+  <!-- =========================================================
+    LÍNEAS DE ASESORÍA
+  ========================================================= -->
   <section class="services-section">
+
     <div class="section-header compact">
       <span class="section-label">Líneas de asesoría</span>
 
@@ -108,30 +128,14 @@
         </ul>
       </article>
     </div>
+
   </section>
 
-  <!-- IMAGE STRIP -->
-  <section class="image-strip">
-    <article class="strip-card" *ngFor="let image of imageCards">
-      <img
-        [src]="image.src"
-        [alt]="image.alt"
-        (error)="onImageError($event)"
-      />
-
-      <div class="image-fallback">
-        <span>{{ image.tag }}</span>
-      </div>
-
-      <div class="strip-overlay">
-        <span>{{ image.tag }}</span>
-        <h3>{{ image.title }}</h3>
-      </div>
-    </article>
-  </section>
-
-  <!-- PROCESS -->
+  <!-- =========================================================
+    PROCESO DE TRABAJO
+  ========================================================= -->
   <section class="process-section" id="proceso">
+
     <div class="section-header compact">
       <span class="section-label">Proceso</span>
 
@@ -154,10 +158,14 @@
         <p>{{ step.description }}</p>
       </article>
     </div>
+
   </section>
 
-  <!-- CTA -->
+  <!-- =========================================================
+    LLAMADO A LA ACCIÓN
+  ========================================================= -->
   <section class="final-cta">
+
     <div>
       <span class="section-label">Conversemos</span>
 
@@ -172,8 +180,13 @@
       </p>
     </div>
 
-    <button class="primary-btn" (click)="openMail('Quiero agendar una asesoría con Atrion Systems')">
+    <button
+      class="primary-btn"
+      (click)="openMail('Quiero agendar una asesoría con Atrion Systems')"
+    >
       Contactar a Atrion Systems
     </button>
+
   </section>
+
 </main>

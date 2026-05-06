@@ -1,6 +1,12 @@
+/* =========================================================
+  IMPORTACIONES
+========================================================= */
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
+/* =========================================================
+  CONFIGURACIÓN DEL COMPONENTE
+========================================================= */
 @Component({
   selector: 'app-asesorias',
   standalone: true,
@@ -9,8 +15,15 @@ import { Component } from '@angular/core';
   styleUrl: './asesorias.css'
 })
 export class Asesorias {
+
+  /* =========================================================
+    CORREO DE CONTACTO
+  ========================================================= */
   private readonly contactEmail = 'atrionsystem@gmail.com';
 
+  /* =========================================================
+    TARJETAS INTRODUCTORIAS
+  ========================================================= */
   audiences = [
     {
       icon: '🏛️',
@@ -38,6 +51,9 @@ export class Asesorias {
     }
   ];
 
+  /* =========================================================
+    LÍNEAS DE ASESORÍA
+  ========================================================= */
   services = [
     {
       number: '01',
@@ -113,27 +129,9 @@ export class Asesorias {
     }
   ];
 
-  imageCards = [
-    {
-      src: '/imagenes/asesorias/charla-empresarial.jpg',
-      alt: 'Charla empresarial de tecnología',
-      tag: 'Charlas',
-      title: 'Conferencias claras, modernas y aplicables'
-    },
-    {
-      src: '/imagenes/asesorias/asesoria-digital.jpg',
-      alt: 'Asesoría digital para empresas',
-      tag: 'Asesoría',
-      title: 'Sesiones privadas para detectar oportunidades'
-    },
-    {
-      src: '/imagenes/asesorias/feria-tecnologia.jpg',
-      alt: 'Feria empresarial tecnológica',
-      tag: 'Ferias',
-      title: 'Participación en eventos y ruedas de negocio'
-    }
-  ];
-
+  /* =========================================================
+    PROCESO DE TRABAJO
+  ========================================================= */
   process = [
     {
       number: '01',
@@ -161,6 +159,9 @@ export class Asesorias {
     }
   ];
 
+  /* =========================================================
+    ABRIR CORREO CON SOLICITUD
+  ========================================================= */
   openMail(subject: string): void {
     const emailSubject = encodeURIComponent(`Atrion Systems - ${subject}`);
 
@@ -180,6 +181,9 @@ export class Asesorias {
     window.location.href = `mailto:${this.contactEmail}?subject=${emailSubject}&body=${body}`;
   }
 
+  /* =========================================================
+    MANEJO DE ERROR EN IMAGEN PRINCIPAL
+  ========================================================= */
   onImageError(event: Event): void {
     const image = event.target as HTMLImageElement;
     image.classList.add('img-error');

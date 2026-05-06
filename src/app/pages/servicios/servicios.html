@@ -39,19 +39,6 @@
       </div>
     </header>
 
-    <!-- FILTROS -->
-    <section class="services-filters" aria-label="Filtros de servicios">
-      <button
-        type="button"
-        class="filter-btn"
-        *ngFor="let filter of filters"
-        [class.active]="activeFilter === filter"
-        (click)="setFilter(filter)"
-      >
-        {{ filter }}
-      </button>
-    </section>
-
     <!-- RESUMEN -->
     <section class="services-summary">
       <article class="summary-card">
@@ -77,6 +64,19 @@
         <h3>Acompañamiento</h3>
         <p>Brindamos soporte, mejora continua y evolución tecnológica.</p>
       </article>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="services-filters" aria-label="Filtros de servicios">
+      <button
+        type="button"
+        class="filter-btn"
+        *ngFor="let filter of filters"
+        [class.active]="activeFilter === filter"
+        (click)="setFilter(filter)"
+      >
+        {{ filter }}
+      </button>
     </section>
 
     <!-- SERVICIOS -->
