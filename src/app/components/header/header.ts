@@ -23,4 +23,8 @@ export class HeaderComponent {
   navigateToContacto(): void {
     this.router.navigate(['/contacto']);
   }
+
+  navigateToServicios(): void {
+    this.router.navigate(['/servicios']);
+  }
 }

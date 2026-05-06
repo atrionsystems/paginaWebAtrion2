@@ -1,0 +1,179 @@
+<main class="advisory-page">
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+  <div class="grid-glow"></div>
+
+  <!-- HERO -->
+  <section class="advisory-hero">
+    <div class="hero-content">
+      <div class="eyebrow">
+        <span></span>
+        Asesorías empresariales · Charlas · Ferias
+      </div>
+
+      <h1>
+        Impulsamos empresas con
+        <strong>tecnología, inteligencia artificial y automatización</strong>
+      </h1>
+
+      <p>
+        Acompañamos federaciones, asociaciones, gremios, empresas y comunidades
+        empresariales mediante charlas, asesorías, talleres y participación en
+        ferias, ayudando a identificar oportunidades reales de transformación
+        digital.
+      </p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-card main-image">
+        <img
+          src="/imagenes/asesorias/feria-empresarial.jpg"
+          alt="Asesoría empresarial y tecnología"
+          (error)="onImageError($event)"
+        />
+
+        <div class="image-fallback">
+          <span>ATRION</span>
+          <strong>Business Sessions</strong>
+        </div>
+      </div>
+
+      <div class="floating-card card-top">
+        <span>01</span>
+        <p>Charlas para empresas y federaciones</p>
+      </div>
+
+      <div class="floating-card card-bottom">
+        <span>02</span>
+        <p>Diagnóstico y oportunidades digitales</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro-section">
+    <div class="section-header">
+      <span class="section-label">Qué hacemos</span>
+
+      <h2>
+        Convertimos encuentros empresariales en oportunidades comerciales reales
+      </h2>
+
+      <p>
+        Esta página está pensada para que federaciones, cámaras de comercio,
+        asociaciones, empresas y organizadores de eventos conozcan cómo Atrion
+        Systems puede participar en espacios empresariales aportando conocimiento,
+        asesoría y soluciones tecnológicas.
+      </p>
+    </div>
+
+    <div class="intro-grid">
+      <article class="intro-card" *ngFor="let item of audiences">
+        <div class="intro-icon">{{ item.icon }}</div>
+
+        <h3>{{ item.title }}</h3>
+
+        <p>{{ item.description }}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section">
+    <div class="section-header compact">
+      <span class="section-label">Líneas de asesoría</span>
+
+      <h2>
+        Espacios que podemos liderar
+      </h2>
+
+      <p>
+        Diseñamos experiencias prácticas para que las empresas entiendan cómo
+        usar la tecnología de forma estratégica, rentable y aplicable.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card" *ngFor="let service of services">
+        <div class="service-number">{{ service.number }}</div>
+
+        <div class="service-icon">{{ service.icon }}</div>
+
+        <h3>{{ service.title }}</h3>
+
+        <p>{{ service.description }}</p>
+
+        <ul>
+          <li *ngFor="let point of service.points">{{ point }}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- IMAGE STRIP -->
+  <section class="image-strip">
+    <article class="strip-card" *ngFor="let image of imageCards">
+      <img
+        [src]="image.src"
+        [alt]="image.alt"
+        (error)="onImageError($event)"
+      />
+
+      <div class="image-fallback">
+        <span>{{ image.tag }}</span>
+      </div>
+
+      <div class="strip-overlay">
+        <span>{{ image.tag }}</span>
+        <h3>{{ image.title }}</h3>
+      </div>
+    </article>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section" id="proceso">
+    <div class="section-header compact">
+      <span class="section-label">Proceso</span>
+
+      <h2>
+        Así trabajamos con cada organización
+      </h2>
+
+      <p>
+        Buscamos que cada participación tenga propósito, valor y una ruta clara
+        para que los asistentes puedan avanzar hacia soluciones reales.
+      </p>
+    </div>
+
+    <div class="process-timeline">
+      <article class="process-step" *ngFor="let step of process">
+        <span>{{ step.number }}</span>
+
+        <h3>{{ step.title }}</h3>
+
+        <p>{{ step.description }}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final-cta">
+    <div>
+      <span class="section-label">Conversemos</span>
+
+      <h2>
+        ¿Tu federación, empresa o comunidad empresarial necesita una charla o asesoría?
+      </h2>
+
+      <p>
+        Podemos acompañarlos en ferias, eventos, capacitaciones, ruedas de negocio
+        o sesiones privadas para identificar oportunidades con inteligencia
+        artificial, software, automatización y análisis de datos.
+      </p>
+    </div>
+
+    <button class="primary-btn" (click)="openMail('Quiero agendar una asesoría con Atrion Systems')">
+      Contactar a Atrion Systems
+    </button>
+  </section>
+</main>

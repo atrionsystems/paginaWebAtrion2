@@ -1,0 +1,205 @@
+<section class="services-page">
+  <div class="services-noise"></div>
+  <div class="services-grid"></div>
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+
+  <div class="services-container">
+    <!-- HERO -->
+    <header class="services-hero">
+      <div class="hero-label">
+        <span class="label-symbol">*</span>
+        <span>PORTAFOLIO DE SERVICIOS</span>
+      </div>
+
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <h1>Soluciones tecnológicas para automatizar, analizar y escalar tu empresa</h1>
+
+          <p>
+            En Atrion Systems diseñamos servicios de automatización, inteligencia artificial,
+            desarrollo de software, analítica de datos y asistentes virtuales orientados a
+            resolver necesidades reales de negocio.
+          </p>
+        </div>
+
+        <div class="hero-card">
+          <span class="hero-card-label">Atrion Systems</span>
+          <h2>Technology Partner</h2>
+          <p>
+            Acompañamos a empresas en la transformación de procesos mediante soluciones
+            digitales modernas, escalables y enfocadas en resultados.
+          </p>
+
+          <a routerLink="/contacto" class="hero-button">
+            Solicitar asesoría
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- FILTROS -->
+    <section class="services-filters" aria-label="Filtros de servicios">
+      <button
+        type="button"
+        class="filter-btn"
+        *ngFor="let filter of filters"
+        [class.active]="activeFilter === filter"
+        (click)="setFilter(filter)"
+      >
+        {{ filter }}
+      </button>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="services-summary">
+      <article class="summary-card">
+        <span>01</span>
+        <h3>Diagnóstico</h3>
+        <p>Analizamos procesos, necesidades y oportunidades de mejora.</p>
+      </article>
+
+      <article class="summary-card">
+        <span>02</span>
+        <h3>Diseño</h3>
+        <p>Definimos una solución tecnológica clara, viable y escalable.</p>
+      </article>
+
+      <article class="summary-card">
+        <span>03</span>
+        <h3>Implementación</h3>
+        <p>Construimos, integramos y desplegamos la solución.</p>
+      </article>
+
+      <article class="summary-card">
+        <span>04</span>
+        <h3>Acompañamiento</h3>
+        <p>Brindamos soporte, mejora continua y evolución tecnológica.</p>
+      </article>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="services-list">
+      <article
+        class="service-card"
+        *ngFor="let service of filteredServices; let i = index"
+        [class.reverse]="i % 2 !== 0"
+      >
+        <div class="service-media">
+          <img [src]="service.image" [alt]="service.title" />
+
+          <div class="media-overlay"></div>
+
+          <div class="service-number">
+            {{ service.number }}
+          </div>
+
+          <div class="service-category">
+            {{ service.category }}
+          </div>
+        </div>
+
+        <div class="service-content">
+          <div class="service-eyebrow">
+            {{ service.eyebrow }}
+          </div>
+
+          <h2>{{ service.title }}</h2>
+
+          <p class="service-description">
+            {{ service.description }}
+          </p>
+
+          <div class="service-highlight">
+            {{ service.highlight }}
+          </div>
+
+          <div class="service-columns">
+            <div class="service-block">
+              <h4>Beneficios</h4>
+
+              <ul>
+                <li *ngFor="let benefit of service.benefits">
+                  {{ benefit }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="service-block">
+              <h4>Tecnologías</h4>
+
+              <div class="tech-list">
+                <span *ngFor="let tech of service.technologies">
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <a routerLink="/contacto" class="service-action">
+            Cotizar este servicio
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <!-- SUSCRIPCIONES -->
+    <section class="subscription-section">
+      <div class="subscription-content">
+        <span class="section-tag">MODELOS FLEXIBLES</span>
+
+        <h2>Servicios por proyecto o por suscripción mensual</h2>
+
+        <p>
+          Podemos trabajar bajo modelos de implementación única, mantenimiento tecnológico,
+          soporte continuo o suscripción mensual para chatbots, automatizaciones, dashboards
+          y soluciones de software.
+        </p>
+      </div>
+
+      <div class="subscription-plans">
+        <article class="plan-card">
+          <span>Starter</span>
+          <h3>Automatización básica</h3>
+          <p>Ideal para empresas que quieren iniciar con flujos simples y tareas repetitivas.</p>
+        </article>
+
+        <article class="plan-card featured">
+          <span>Business</span>
+          <h3>Solución integral</h3>
+          <p>Incluye automatización, analítica, integraciones y acompañamiento técnico.</p>
+        </article>
+
+        <article class="plan-card">
+          <span>Advanced</span>
+          <h3>IA y software a medida</h3>
+          <p>Para empresas que necesitan modelos inteligentes o plataformas personalizadas.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="services-cta">
+      <div class="cta-light"></div>
+
+      <div class="cta-content">
+        <span>¿Tienes una idea o un proceso que quieres mejorar?</span>
+
+        <h2>Convirtamos tu necesidad en una solución tecnológica real</h2>
+
+        <p>
+          Agenda una asesoría con Atrion Systems y evaluemos cómo la automatización,
+          la inteligencia artificial o el software a medida pueden ayudarte a optimizar
+          tu empresa.
+        </p>
+
+        <a routerLink="/contacto" class="cta-button">
+          Hablemos de tu proyecto
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</section>
