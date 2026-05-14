@@ -117,39 +117,40 @@
 }
 
 .brand-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 1.08rem;
-  font-weight: 800;
-  color: white;
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: transparent;
   box-shadow:
-    0 12px 28px rgba(76, 29, 149, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    0 12px 28px rgba(76, 29, 149, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
   transition:
     width 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     border-radius 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    font-size 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     box-shadow 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.brand-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+}
+
 .header-wrap.scrolled .brand-icon {
-  width: 39px;
-  height: 39px;
-  border-radius: 12px;
-  font-size: 0.94rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
   transform: scale(0.96);
   box-shadow:
-    0 8px 18px rgba(76, 29, 149, 0.24),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    0 8px 18px rgba(76, 29, 149, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08);
 }
 
 .brand-text {
@@ -160,7 +161,7 @@
 }
 
 .brand-name {
-  font-family: 'Michroma', sans-serif;
+  font-family: var(--font-title) !important;
   font-size: 0.94rem;
   letter-spacing: 0.08em;
   color: #fff;
@@ -178,10 +179,10 @@
 }
 
 .brand-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem;
-  color: rgba(255, 255, 255, 0.42);
-  letter-spacing: 0.26em;
+  font-family: var(--font-text) !important;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   margin-top: 7px;
   transition:
@@ -192,10 +193,9 @@
 }
 
 .header-wrap.scrolled .brand-subtitle {
-  font-size: 0.53rem;
-  letter-spacing: 0.2em;
-  opacity: 0.58;
-  transform: translateY(-2px);
+  font-size: 0.67rem;
+  letter-spacing: 0.18em;
+  opacity: 0.65;
 }
 
 .nav {
@@ -218,11 +218,11 @@
   align-items: center;
   height: 94px;
   text-decoration: none;
-  font-family: 'Michroma', sans-serif;
-  font-size: 0.67rem;
+  font-family: var(--font-text) !important;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.75);
   transition:
     height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     font-size 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -234,7 +234,7 @@
 
 .header-wrap.scrolled .nav a {
   height: 70px;
-  font-size: 0.61rem;
+  font-size: 0.72rem;
   letter-spacing: 0.13em;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -329,10 +329,10 @@
 
 .primary-btn {
   text-decoration: none;
-  padding: 13px 24px;
+  padding: 14px 28px;
   border-radius: 999px;
-  font-family: 'Michroma', sans-serif;
-  font-size: 0.66rem;
+  font-family: var(--font-text) !important;
+  font-size: 0.85rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: white;
@@ -351,8 +351,8 @@
 }
 
 .header-wrap.scrolled .primary-btn {
-  padding: 10px 20px;
-  font-size: 0.59rem;
+  padding: 12px 22px;
+  font-size: 0.72rem;
   box-shadow:
     0 10px 20px rgba(76, 29, 149, 0.24),
     0 0 18px rgba(139, 92, 246, 0.1);
@@ -496,6 +496,28 @@
   .header-wrap.scrolled .nav a::after {
     bottom: 0;
   }
+}
+
+/* =========================================================
+   LOGO ATRION SYSTEMS
+========================================================= */
+
+.brand {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-title) !important;
+}
+
+.brand-atrion {
+  font-weight: 700 !important;
+}
+
+.brand-systems {
+  font-weight: 400 !important;
 }
 
 @media (max-width: 640px) {

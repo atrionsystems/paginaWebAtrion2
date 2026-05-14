@@ -6,7 +6,7 @@
   width: 100%;
   background: #05050a;
   color: #ffffff;
-  font-family: "Inter", "Segoe UI", sans-serif;
+  font-family: var(--font-text) !important;
 }
 
 /* =========================================================

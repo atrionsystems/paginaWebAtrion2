@@ -1,5 +1,128 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Michroma&display=swap');
 
+/* =========================================================
+   FUENTE GLOBAL ATRION
+========================================================= */
+
+@font-face {
+  font-family: "Bahnschrift Atrion";
+  src: url("assets/fonts/bahnschrift.ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+
+:root {
+  --font-title: "Bahnschrift Atrion", "Bahnschrift", "Segoe UI", Arial, sans-serif;
+  --font-text: "Bahnschrift Atrion", "Bahnschrift", "Segoe UI", Arial, sans-serif;
+}
+
+/* =========================================================
+   FORZAR TIPOGRAFÍA EN TODA LA PÁGINA
+========================================================= */
+
+html,
+body,
+app-root,
+*,
+*::before,
+*::after {
+  font-family: var(--font-text) !important;
+}
+
+/* Descripciones, párrafos, navegación, botones y formularios */
+body,
+p,
+span,
+a,
+li,
+button,
+input,
+textarea,
+select,
+option,
+label,
+small,
+strong,
+em,
+div,
+section,
+article,
+form,
+pre,
+code {
+  font-family: var(--font-text) !important;
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.section-title,
+.card-title,
+.title,
+.logo-text {
+  font-family: var(--font-title) !important;
+}
+
+/* Pesos */
+h1,
+.hero-title {
+  font-weight: 700 !important;
+}
+
+h2,
+.section-title {
+  font-weight: 700 !important;
+}
+
+h3,
+h4,
+h5,
+h6,
+.card-title {
+  font-weight: 600 !important;
+}
+
+p,
+span,
+a,
+li,
+button,
+input,
+textarea,
+label,
+small {
+  font-weight: 400;
+}
+
+h3,
+h4,
+h5,
+h6,
+.card-title {
+  font-weight: 600 !important;
+}
+
+p,
+.hero-description,
+.section-description,
+.card-description {
+  font-weight: 400 !important;
+}
+
+html {
+  font-size: 18px;
+}
+
 html,
 body {
   margin: 0;
