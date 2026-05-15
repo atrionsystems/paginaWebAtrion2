@@ -223,41 +223,58 @@
 }
 
 /* =========================================================
-  TARJETAS FLOTANTES DEL HERO
+  DESTACADOS DEL HERO
 ========================================================= */
-.floating-card {
+.visual-highlights {
   position: absolute;
   z-index: 4;
-  width: 230px;
-  padding: 22px;
-  border-radius: 24px;
-  background: rgba(9, 9, 18, 0.76);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(22px);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  padding: 26px 30px 28px;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(2, 2, 8, 0.36) 28%, rgba(2, 2, 8, 0.78) 100%);
 }
 
-.floating-card span {
-  color: #9d72ff;
-  font-weight: 900;
-  font-size: 0.85rem;
+.visual-highlight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  padding: 0 22px;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
-.floating-card p {
-  margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.82);
-  line-height: 1.5;
-  font-weight: 600;
+.visual-highlight:first-child {
+  padding-left: 0;
 }
 
-.card-top {
-  top: 46px;
-  left: -38px;
+.visual-highlight + .visual-highlight {
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.card-bottom {
-  right: -32px;
-  bottom: 62px;
+.visual-highlight span {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, #9d72ff, #63c7ff);
+  box-shadow: 0 0 18px rgba(99, 199, 255, 0.5);
+}
+
+.visual-highlight p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.4;
+  font-weight: 750;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
 }
 
 /* =========================================================
@@ -385,16 +402,6 @@
 .service-card:hover {
   transform: translateY(-9px);
   border-color: rgba(99, 199, 255, 0.52);
-}
-
-.service-number {
-  position: absolute;
-  top: 24px;
-  right: 28px;
-  color: rgba(255, 255, 255, 0.13);
-  font-size: 3.2rem;
-  font-weight: 900;
-  line-height: 1;
 }
 
 .service-card ul {
@@ -558,18 +565,28 @@
     height: 420px;
   }
 
-  .floating-card {
+  .hero-visual {
+    min-height: auto;
+  }
+
+  .visual-highlights {
     position: relative;
-    width: auto;
     left: auto;
     right: auto;
-    top: auto;
     bottom: auto;
+    grid-template-columns: 1fr;
+    padding: 0;
+    background: transparent;
     margin-top: 16px;
   }
 
-  .hero-visual {
-    min-height: auto;
+  .visual-highlight {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .visual-highlight + .visual-highlight {
+    border-left: 0;
   }
 
   .final-cta {

@@ -69,7 +69,7 @@
 /* HERO */
 
 .services-hero {
-  margin-bottom: 34px;
+  margin-bottom: 42px;
 }
 
 .hero-label {
@@ -99,19 +99,34 @@
 
 .hero-copy h1 {
   max-width: 860px;
-  margin: 0 0 24px;
-  font-size: clamp(2.7rem, 6.5vw, 6.3rem);
-  line-height: 0.92;
-  letter-spacing: -0.065em;
+  margin: 0 0 28px;
+  font-size: clamp(3rem, 6.2vw, 6.7rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   font-weight: 900;
+  color: transparent;
+  background:
+    linear-gradient(92deg, #ffffff 0%, #eaf6ff 36%, #8fd3ff 66%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-wrap: balance;
+  text-shadow:
+    0 0 38px rgba(77, 171, 255, 0.14),
+    0 24px 64px rgba(0, 0, 0, 0.28);
+}
+
+.hero-copy h1::first-letter {
+  color: #ffffff;
 }
 
 .hero-copy p {
   max-width: 760px;
   margin: 0;
-  color: rgba(231, 237, 246, 0.78);
-  font-size: 1.08rem;
+  color: rgba(231, 237, 246, 0.82);
+  font-size: 1.14rem;
   line-height: 1.85;
+  font-weight: 650;
+  letter-spacing: 0.02em;
 }
 
 .hero-card {

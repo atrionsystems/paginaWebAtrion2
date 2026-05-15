@@ -3,6 +3,7 @@
 ========================================================= */
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 /* =========================================================
   CONFIGURACIÓN DEL COMPONENTE
@@ -10,7 +11,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-asesorias',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './asesorias.html',
   styleUrl: './asesorias.css'
 })

@@ -12,12 +12,18 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
   isScrolled = false;
+  scrollProgress = 0;
 
   constructor(private router: Router) {}
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 30;
+    const start = 12;
+    const distance = 150;
+    const rawProgress = (window.scrollY - start) / distance;
+
+    this.scrollProgress = Math.min(Math.max(rawProgress, 0), 1);
+    this.isScrolled = this.scrollProgress > 0.04;
   }
 
   navigateToContacto(): void {

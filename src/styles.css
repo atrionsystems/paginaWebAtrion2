@@ -121,6 +121,7 @@ p,
 
 html {
   font-size: 18px;
+  overflow-x: hidden;
 }
 
 html,
@@ -131,6 +132,7 @@ body {
   min-height: 100%;
   background: #020103;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 * {

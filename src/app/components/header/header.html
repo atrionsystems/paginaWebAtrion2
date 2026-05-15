@@ -1,10 +1,13 @@
-<header class="header-wrap" [class.scrolled]="isScrolled">
+<header
+  class="header-wrap"
+  [class.scrolled]="isScrolled"
+  [style.--header-progress]="scrollProgress"
+>
   <div class="header-glow"></div>
 
   <div class="header">
     <a routerLink="/" class="brand">
-      <span class="brand-atrion">Atrion</span>
-      <span class="brand-systems">Systems</span>
+      <img src="/imagenes/atrionlogo.png" alt="Atrion Systems" class="brand-logo-img" />
     </a>
 
     <nav class="nav">
