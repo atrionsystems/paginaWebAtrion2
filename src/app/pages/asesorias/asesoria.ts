@@ -20,7 +20,7 @@ export class Asesorias {
   /* =========================================================
     CORREO DE CONTACTO
   ========================================================= */
-  private readonly contactEmail = 'atrionsystem@gmail.com';
+  private readonly contactEmail = 'atrionsystems@gmail.com';
 
   /* =========================================================
     TARJETAS INTRODUCTORIAS
