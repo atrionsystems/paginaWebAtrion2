@@ -82,7 +82,7 @@ export class ContactoComponent {
       return;
     }
 
-    const businessEmail = 'atrionsystem@gmail.com';
+    const businessEmail = 'atrionsystems@gmail.com';
 
     const subject = encodeURIComponent(
       `Nueva solicitud de contacto - ${this.form.reason}`
@@ -111,6 +111,6 @@ export class ContactoComponent {
     CORREO DIRECTO
   ========================================================= */
   openDirectEmail(): void {
-    window.location.href = 'mailto:atrionsystem@gmail.com';
+    window.location.href = 'mailto:atrionsystems@gmail.com';
   }
 }
