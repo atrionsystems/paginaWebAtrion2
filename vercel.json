@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/contabilidad", "destination": "https://atrion-core.vercel.app/contabilidad" },
-    { "source": "/contabilidad/:path*", "destination": "https://atrion-core.vercel.app/contabilidad/:path*" },
+    { "source": "/contabilidad", "destination": "https://atrion-core.vercel.app/" },
+    { "source": "/contabilidad/:path*", "destination": "https://atrion-core.vercel.app/:path*" },
     { "source": "/api/:path*", "destination": "https://atrion-core.vercel.app/api/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
