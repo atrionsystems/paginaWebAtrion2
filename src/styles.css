@@ -19,6 +19,18 @@
 :root {
   --font-title: "Bahnschrift Atrion", "Bahnschrift", "Segoe UI", Arial, sans-serif;
   --font-text: "Bahnschrift Atrion", "Bahnschrift", "Segoe UI", Arial, sans-serif;
+  --atrion-blue: #4312f8;
+  --atrion-blue-dark: #220266;
+  --atrion-black: #020733;
+  --atrion-white: #e3deff;
+  --atrion-blue-rgb: 67, 18, 248;
+  --atrion-blue-dark-rgb: 34, 2, 102;
+  --atrion-black-rgb: 2, 7, 51;
+  --atrion-white-rgb: 227, 222, 255;
+  --atrion-gradient-page: linear-gradient(135deg, var(--atrion-black) 0%, var(--atrion-blue-dark) 52%, var(--atrion-black) 100%);
+  --atrion-gradient-cta: linear-gradient(135deg, var(--atrion-blue) 0%, var(--atrion-blue-dark) 100%);
+  --atrion-gradient-accent: linear-gradient(90deg, var(--atrion-blue-dark) 0%, var(--atrion-blue) 50%, var(--atrion-white) 100%);
+  --atrion-gradient-text: linear-gradient(92deg, var(--atrion-white) 0%, var(--atrion-blue) 58%, var(--atrion-white) 100%);
 }
 
 /* =========================================================
@@ -130,7 +142,7 @@ body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  background: #020103;
+  background: var(--atrion-black);
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
