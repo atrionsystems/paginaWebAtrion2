@@ -206,14 +206,35 @@
           </div>
         </div>
 
+        <!-- Mensaje de éxito -->
+        <div class="submit-feedback success-msg" *ngIf="submitState === 'success'">
+          <span class="feedback-icon">✓</span>
+          <div>
+            <strong>¡Solicitud enviada!</strong>
+            <p>Recibimos tu mensaje. Te enviamos una confirmación a <em>{{ clientEmail }}</em>.</p>
+          </div>
+        </div>
+
+        <!-- Mensaje de error -->
+        <div class="submit-feedback error-msg" *ngIf="submitState === 'error'">
+          <span class="feedback-icon">!</span>
+          <div>
+            <strong>Error al enviar</strong>
+            <p>Ocurrió un problema. Intenta de nuevo o escríbenos a <a href="mailto:atrionsystems@gmail.com">atrionsystems@gmail.com</a>.</p>
+          </div>
+        </div>
+
         <!-- Botón -->
         <div class="form-actions">
           <button
             type="submit"
             class="primary-btn"
-            [disabled]="!contactForm.valid || !form.reason"
+            [disabled]="!contactForm.valid || !form.reason || isLoading"
           >
-            Enviar solicitud
+            <span *ngIf="!isLoading">Enviar solicitud</span>
+            <span *ngIf="isLoading" class="btn-loading">
+              <span class="spinner"></span> Enviando...
+            </span>
           </button>
         </div>
 

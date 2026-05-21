@@ -67,9 +67,16 @@ export class ContactoComponent {
   }
 
   /* =========================================================
-    ENVÍO DE SOLICITUD POR CORREO
+    ESTADOS DE ENVÍO
   ========================================================= */
-  sendRequest(): void {
+  isLoading = false;
+  submitState: 'idle' | 'success' | 'error' = 'idle';
+  clientEmail = '';
+
+  /* =========================================================
+    ENVÍO DE SOLICITUD
+  ========================================================= */
+  async sendRequest(): Promise<void> {
     if (
       !this.form.reason ||
       !this.form.firstName ||
@@ -82,29 +89,33 @@ export class ContactoComponent {
       return;
     }
 
-    const businessEmail = 'atrionsystems@gmail.com';
+    this.isLoading = true;
+    this.submitState = 'idle';
 
-    const subject = encodeURIComponent(
-      `Nueva solicitud de contacto - ${this.form.reason}`
-    );
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...this.form })
+      });
 
-    const body = encodeURIComponent(
-      `Hola Atrion Systems,\n\n` +
-      `Les comparto mi solicitud de contacto.\n\n` +
-      `Motivo de la consulta: ${this.form.reason}\n` +
-      `Nombre: ${this.form.firstName}\n` +
-      `Apellido: ${this.form.lastName}\n` +
-      `Correo electrónico: ${this.form.email}\n` +
-      `Teléfono: ${this.form.phone}\n` +
-      `Empresa: ${this.form.company || 'No especifica'}\n` +
-      `Cargo: ${this.form.position || 'No especifica'}\n` +
-      `Ubicación: ${this.form.location}\n` +
-      `Ciudad: ${this.form.city || 'No especifica'}\n\n` +
-      `Consulta o comentario:\n${this.form.message}\n\n` +
-      `Por favor, contáctenme con esta información.`
-    );
+      if (!res.ok) throw new Error('Error en el servidor');
 
-    window.location.href = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+      this.clientEmail = this.form.email;
+      this.submitState = 'success';
+      this.resetForm();
+    } catch {
+      this.submitState = 'error';
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private resetForm(): void {
+    this.form = {
+      reason: '', firstName: '', lastName: '', email: '',
+      phone: '', company: '', position: '', location: '', city: '', message: ''
+    };
   }
 
   /* =========================================================
