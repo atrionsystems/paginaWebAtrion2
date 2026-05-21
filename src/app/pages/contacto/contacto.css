@@ -499,6 +499,12 @@
   text-decoration: underline;
 }
 
+.spam-note {
+  margin-top: 6px !important;
+  opacity: 0.7;
+  font-size: 0.83rem !important;
+}
+
 /* Spinner del botón */
 .btn-loading {
   display: inline-flex;
