@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/contabilidad/api/:path*", "destination": "/api/erp-proxy/:path*" },
     { "source": "/contabilidad", "destination": "https://atrion-core.vercel.app/contabilidad" },
     { "source": "/contabilidad/:path*", "destination": "https://atrion-core.vercel.app/contabilidad/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
