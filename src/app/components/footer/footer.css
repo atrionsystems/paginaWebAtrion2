@@ -25,35 +25,58 @@
 }
 
 .footer-wrapper {
-  width: min(1200px, 90%);
+  width: min(1680px, 88%);
   margin: 0 auto;
-  padding: 80px 0 30px;
+  padding: 82px 0 34px;
   position: relative;
   z-index: 2;
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1.6fr 1fr;
-  gap: 50px;
+  grid-template-columns: minmax(330px, 1fr) minmax(620px, 2fr) minmax(330px, 1fr);
+  gap: 0;
+  align-items: stretch;
 }
 
 .footer-col {
-  padding-right: 30px;
+  position: relative;
+  min-width: 0;
+  padding: 0;
+}
+
+.brand-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
 }
 
 .footer-logo-img {
-  width: 148px;
-  max-height: 70px;
+  width: min(340px, 82%);
+  max-height: 170px;
   height: auto;
   object-fit: contain;
   display: block;
-  margin-bottom: 22px;
+  margin: 0;
+  transform: translateX(-45px);
   filter: drop-shadow(0 10px 24px rgba(67, 18, 248, 0.08));
 }
 
 .footer-col:not(:last-child) {
-  border-right: 1px solid rgba(227, 222, 255, 0.18);
+  border-right: 1px solid rgba(227, 222, 255, 0.16);
+}
+
+.footer-col:not(:first-child) {
+  padding-left: clamp(48px, 3.4vw, 64px);
+}
+
+.footer-col:not(.brand-col):not(:last-child) {
+  padding-right: clamp(48px, 3.4vw, 64px);
+}
+
+.footer-col.brand-col:not(:last-child) {
+  padding-right: 0;
 }
 
 .footer-label,
@@ -183,10 +206,22 @@
   box-shadow: 0 0 18px rgba(67, 18, 248, 0.35);
 }
 
-.contact-info p {
+.contact-info p,
+.contact-info a {
+  display: block;
   margin: 0 0 12px;
   color: rgba(227, 222, 255, 0.8);
   line-height: 1.7;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.contact-info a {
+  transition: color 0.25s ease;
+}
+
+.contact-info a:hover {
+  color: #4312f8;
 }
 
 .footer-bottom {
@@ -207,16 +242,39 @@
 }
 
 @media (max-width: 1100px) {
+  .footer-wrapper {
+    width: min(100% - 48px, 760px);
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .footer-col {
-    padding-right: 0;
+    padding: 0;
     border-right: none !important;
     border-bottom: 1px solid rgba(227, 222, 255, 0.14);
     padding-bottom: 30px;
+  }
+
+  .footer-col:not(:first-child) {
+    padding-left: 0;
+  }
+
+  .footer-col:not(.brand-col):not(:last-child) {
+    padding-right: 0;
+  }
+
+  .brand-col {
+    justify-content: flex-start;
+    padding-top: 0;
+    transform: none;
+  }
+
+  .footer-logo-img {
+    width: min(250px, 72vw);
+    transform: none;
   }
 
   .footer-col:last-child {

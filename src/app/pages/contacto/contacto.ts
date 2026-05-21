@@ -118,10 +118,4 @@ export class ContactoComponent {
     };
   }
 
-  /* =========================================================
-    CORREO DIRECTO
-  ========================================================= */
-  openDirectEmail(): void {
-    window.location.href = 'mailto:atrionsystems@gmail.com';
-  }
 }
