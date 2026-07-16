@@ -31,6 +31,9 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
+.env
+.env.local
+.env.production
 .sass-cache/
 /connect.lock
 /coverage
@@ -42,3 +45,5 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+.env
+.vercel

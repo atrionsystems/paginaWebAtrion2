@@ -47,27 +47,56 @@
       </div>
 
       <!-- Formulario -->
-      <form class="contact-form" (ngSubmit)="sendRequest()" #contactForm="ngForm">
+      <form
+        class="contact-form"
+        (ngSubmit)="sendRequest()"
+        #contactForm="ngForm"
+        [attr.aria-busy]="isLoading"
+        aria-describedby="contact-status"
+      >
+
+        <!-- Honeypot antispam: debe permanecer vacío y fuera del flujo visual. -->
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="website">Sitio web</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            [(ngModel)]="form.website"
+            autocomplete="off"
+            tabindex="-1"
+          />
+        </div>
 
         <!-- Campo personalizado: motivo de consulta -->
         <div class="form-group full">
-          <label>Motivo de tu consulta *</label>
+          <label id="reasonLabel">Servicio de interés</label>
+
+          <input type="hidden" name="reason" [(ngModel)]="form.reason" />
 
           <div
             class="custom-select"
             [class.open]="isReasonOpen"
             (click)="$event.stopPropagation(); toggleReasonDropdown()"
+            (keydown)="handleReasonKeydown($event)"
+            role="combobox"
+            aria-haspopup="listbox"
+            aria-labelledby="reasonLabel"
+            [attr.aria-expanded]="isReasonOpen"
+            tabindex="0"
           >
             <div class="custom-select-value" [class.placeholder]="!form.reason">
               <span>{{ form.reason || 'Selecciona una opción' }}</span>
               <span class="custom-arrow">⌄</span>
             </div>
 
-            <div class="custom-options" *ngIf="isReasonOpen">
+            <div class="custom-options" *ngIf="isReasonOpen" role="listbox">
               <button
                 type="button"
                 *ngFor="let option of reasonOptions"
                 [class.active]="form.reason === option"
+                role="option"
+                [attr.aria-selected]="form.reason === option"
                 (click)="selectReason(option); $event.stopPropagation()"
               >
                 {{ option }}
@@ -88,13 +117,16 @@
                 name="firstName"
                 [(ngModel)]="form.firstName"
                 placeholder="Ingresa tu nombre"
+                autocomplete="given-name"
+                minlength="1"
+                maxlength="80"
                 required
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="lastName">Apellido *</label>
+            <label for="lastName">Apellido</label>
             <div class="input-shell">
               <input
                 type="text"
@@ -102,7 +134,8 @@
                 name="lastName"
                 [(ngModel)]="form.lastName"
                 placeholder="Ingresa tu apellido"
-                required
+                autocomplete="family-name"
+                maxlength="80"
               />
             </div>
           </div>
@@ -116,13 +149,15 @@
                 name="email"
                 [(ngModel)]="form.email"
                 placeholder="ejemplo@correo.com"
+                autocomplete="email"
+                maxlength="254"
                 required
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="phone">Teléfono *</label>
+            <label for="phone">Teléfono</label>
             <div class="input-shell">
               <input
                 type="tel"
@@ -130,7 +165,9 @@
                 name="phone"
                 [(ngModel)]="form.phone"
                 placeholder="Tu número de contacto"
-                required
+                autocomplete="tel"
+                maxlength="30"
+                pattern="\+?[0-9\s().-]{7,30}"
               />
             </div>
           </div>
@@ -144,6 +181,8 @@
                 name="company"
                 [(ngModel)]="form.company"
                 placeholder="Nombre de la empresa"
+                autocomplete="organization"
+                maxlength="120"
               />
             </div>
           </div>
@@ -157,12 +196,14 @@
                 name="position"
                 [(ngModel)]="form.position"
                 placeholder="Tu cargo o rol"
+                autocomplete="organization-title"
+                maxlength="120"
               />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="location">País / Ubicación *</label>
+            <label for="location">País / Ubicación</label>
             <div class="input-shell">
               <input
                 type="text"
@@ -170,7 +211,8 @@
                 name="location"
                 [(ngModel)]="form.location"
                 placeholder="Ej. Colombia"
-                required
+                autocomplete="country-name"
+                maxlength="100"
               />
             </div>
           </div>
@@ -184,6 +226,8 @@
                 name="city"
                 [(ngModel)]="form.city"
                 placeholder="Ej. Manizales"
+                autocomplete="address-level2"
+                maxlength="100"
               />
             </div>
           </div>
@@ -201,27 +245,40 @@
               [(ngModel)]="form.message"
               rows="5"
               placeholder="Cuéntanos qué necesitas, qué problema buscas resolver o qué tipo de solución te interesa..."
+              minlength="1"
+              maxlength="4000"
               required
             ></textarea>
           </div>
         </div>
 
         <!-- Mensaje de éxito -->
-        <div class="submit-feedback success-msg" *ngIf="submitState === 'success'">
+        <div
+          id="contact-status"
+          class="submit-feedback success-msg"
+          *ngIf="submitState === 'success'"
+          role="status"
+          aria-live="polite"
+        >
           <span class="feedback-icon">✓</span>
           <div>
-            <strong>¡Solicitud enviada!</strong>
-            <p>Recibimos tu mensaje. Te enviamos una confirmación a <em>{{ clientEmail }}</em>.</p>
-            <p class="spam-note">Si no ves el correo en unos minutos, revisa tu carpeta de <strong>spam o correo no deseado</strong>.</p>
+            <strong>¡Gracias por contactarnos!</strong>
+            <p>Recibimos tu solicitud y nuestro equipo se comunicará contigo pronto.</p>
           </div>
         </div>
 
         <!-- Mensaje de error -->
-        <div class="submit-feedback error-msg" *ngIf="submitState === 'error'">
+        <div
+          id="contact-status"
+          class="submit-feedback error-msg"
+          *ngIf="submitState === 'error'"
+          role="alert"
+          aria-live="assertive"
+        >
           <span class="feedback-icon">!</span>
           <div>
             <strong>Error al enviar</strong>
-            <p>Ocurrió un problema. Intenta de nuevo o escríbenos a <a href="mailto:atrionsystems@gmail.com">atrionsystems@gmail.com</a>.</p>
+            <p>No pudimos enviar tu solicitud en este momento. Verifica los datos e inténtalo nuevamente.</p>
           </div>
         </div>
 
@@ -230,7 +287,7 @@
           <button
             type="submit"
             class="primary-btn"
-            [disabled]="!contactForm.valid || !form.reason || isLoading"
+            [disabled]="!contactForm.valid || isLoading"
           >
             <span *ngIf="!isLoading">Enviar solicitud</span>
             <span *ngIf="isLoading" class="btn-loading">

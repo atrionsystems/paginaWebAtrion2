@@ -1,72 +1,144 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import nodemailer from 'nodemailer';
+import {
+  ContactValidationError,
+  type ContactData,
+  validateContactPayload,
+} from '../server/contact/contact-data';
+import { sendContactEmails } from '../server/contact/email';
+import {
+  createOdooOpportunity,
+  OdooIntegrationError,
+  type OdooCreateResult,
+} from '../server/contact/odoo';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Método no permitido' });
-  }
+const MAX_REQUEST_BYTES = 25_000;
 
-  const { reason, firstName, lastName, email, phone, company, position, location, city, message } = req.body;
+type CreateOpportunity = (data: ContactData) => Promise<OdooCreateResult>;
+type SendEmails = (data: ContactData) => Promise<boolean>;
 
-  if (!reason || !firstName || !lastName || !email || !phone || !location || !message) {
-    return res.status(400).json({ error: 'Campos requeridos incompletos' });
-  }
-
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env['GMAIL_USER'],
-      pass: process.env['GMAIL_APP_PASSWORD']
-    }
-  });
-
-  // Correo interno a Atrion Systems con todos los datos
-  await transporter.sendMail({
-    from: `"Atrion Web" <${process.env['GMAIL_USER']}>`,
-    to: process.env['GMAIL_USER'],
-    replyTo: email,
-    subject: `Nueva solicitud — ${reason}`,
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#4312f8">Nueva solicitud de contacto</h2>
-        <table style="width:100%;border-collapse:collapse">
-          <tr><td style="padding:8px 0;color:#666;width:140px">Motivo</td><td style="padding:8px 0;font-weight:600">${reason}</td></tr>
-          <tr><td style="padding:8px 0;color:#666">Nombre</td><td style="padding:8px 0">${firstName} ${lastName}</td></tr>
-          <tr><td style="padding:8px 0;color:#666">Correo</td><td style="padding:8px 0"><a href="mailto:${email}">${email}</a></td></tr>
-          <tr><td style="padding:8px 0;color:#666">Teléfono</td><td style="padding:8px 0">${phone}</td></tr>
-          <tr><td style="padding:8px 0;color:#666">Empresa</td><td style="padding:8px 0">${company || 'No especifica'}</td></tr>
-          <tr><td style="padding:8px 0;color:#666">Cargo</td><td style="padding:8px 0">${position || 'No especifica'}</td></tr>
-          <tr><td style="padding:8px 0;color:#666">Ubicación</td><td style="padding:8px 0">${location}${city ? `, ${city}` : ''}</td></tr>
-        </table>
-        <h3 style="color:#4312f8;margin-top:24px">Mensaje</h3>
-        <p style="background:#f5f5f5;padding:16px;border-radius:8px;line-height:1.7">${message.replace(/\n/g, '<br>')}</p>
-      </div>
-    `
-  });
-
-  // Correo de confirmación al cliente
-  await transporter.sendMail({
-    from: `"Atrion Systems" <${process.env['GMAIL_USER']}>`,
-    to: email,
-    subject: 'Recibimos tu solicitud — Atrion Systems',
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-        <h2 style="color:#4312f8">¡Hola, ${firstName}!</h2>
-        <p style="color:#333;line-height:1.7">
-          Recibimos tu solicitud sobre <strong>${reason}</strong>. Nuestro equipo la revisará
-          y te contactará a la brevedad con una respuesta.
-        </p>
-        <p style="color:#333;line-height:1.7">
-          Si tienes alguna pregunta adicional puedes escribirnos directamente a
-          <a href="mailto:atrionsystems@gmail.com" style="color:#4312f8">atrionsystems@gmail.com</a>.
-        </p>
-        <p style="color:#888;margin-top:32px;font-size:0.9rem">
-          Atentamente,<br/>
-          <strong>Equipo Atrion Systems</strong>
-        </p>
-      </div>
-    `
-  });
-
-  return res.status(200).json({ ok: true });
+export interface ContactHandlerDependencies {
+  createOpportunity: CreateOpportunity;
+  sendEmails: SendEmails;
 }
+
+function firstHeader(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function requestOriginIsAllowed(req: VercelRequest): boolean {
+  const origin = firstHeader(req.headers.origin);
+  if (!origin) return true;
+
+  const forwardedHost = firstHeader(req.headers['x-forwarded-host']);
+  const host = (forwardedHost ?? firstHeader(req.headers.host))?.split(',')[0]?.trim();
+  if (!host) return false;
+
+  try {
+    return new URL(origin).host.toLowerCase() === host.toLowerCase();
+  } catch {
+    return false;
+  }
+}
+
+function setSecurityHeaders(res: VercelResponse): void {
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+}
+
+export function createContactHandler(
+  dependencies: Partial<ContactHandlerDependencies> = {},
+): (req: VercelRequest, res: VercelResponse) => Promise<VercelResponse | void> {
+  const createOpportunity =
+    dependencies.createOpportunity ?? ((data) => createOdooOpportunity(data));
+  const sendEmails = dependencies.sendEmails ?? ((data) => sendContactEmails(data));
+
+  return async (req: VercelRequest, res: VercelResponse): Promise<VercelResponse | void> => {
+    setSecurityHeaders(res);
+
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST');
+      return res.status(405).json({
+        ok: false,
+        error: 'Método no permitido.',
+      });
+    }
+
+    if (!requestOriginIsAllowed(req)) {
+      return res.status(403).json({
+        ok: false,
+        error: 'Origen de solicitud no permitido.',
+      });
+    }
+
+    const contentType = firstHeader(req.headers['content-type'])
+      ?.split(';')[0]
+      ?.trim()
+      .toLowerCase();
+    if (contentType !== 'application/json') {
+      return res.status(415).json({
+        ok: false,
+        error: 'El contenido de la solicitud no es compatible.',
+      });
+    }
+
+    const contentLength = Number(firstHeader(req.headers['content-length']) ?? 0);
+    if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+      return res.status(413).json({
+        ok: false,
+        error: 'La solicitud es demasiado grande.',
+      });
+    }
+
+    let contact: ContactData;
+    try {
+      contact = validateContactPayload(req.body);
+    } catch (error) {
+      if (error instanceof ContactValidationError) {
+        return res.status(400).json({
+          ok: false,
+          error: 'Verifica los datos del formulario e inténtalo nuevamente.',
+          field: error.field,
+        });
+      }
+      console.error('[contact] Error inesperado al validar la solicitud.', error);
+      return res.status(400).json({
+        ok: false,
+        error: 'La solicitud no es válida.',
+      });
+    }
+
+    try {
+      await createOpportunity(contact);
+    } catch (error) {
+      if (error instanceof OdooIntegrationError) {
+        console.error(`[contact] Fallo de Odoo (${error.kind}).`, {
+          status: error.upstreamStatus,
+          message: error.message,
+        });
+
+        const status = error.kind === 'timeout' ? 504 : error.kind === 'configuration' ? 503 : 502;
+        return res.status(status).json({
+          ok: false,
+          error: 'No pudimos enviar tu solicitud en este momento. Inténtalo nuevamente.',
+        });
+      }
+
+      console.error('[contact] Error inesperado al crear la oportunidad.', error);
+      return res.status(500).json({
+        ok: false,
+        error: 'No pudimos enviar tu solicitud en este momento. Inténtalo nuevamente.',
+      });
+    }
+
+    try {
+      await sendEmails(contact);
+    } catch (error) {
+      // Odoo ya confirmó y comprometió la oportunidad. El correo es secundario.
+      console.error('[contact] Oportunidad creada, pero falló la notificación por correo.', error);
+    }
+
+    return res.status(201).json({ ok: true });
+  };
+}
+
+export default createContactHandler();

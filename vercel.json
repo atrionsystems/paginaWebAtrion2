@@ -1,8 +1,13 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "angular",
   "rewrites": [
     { "source": "/contabilidad/api/:path*", "destination": "/api/erp-proxy/:path*" },
     { "source": "/contabilidad", "destination": "https://atrion-core.vercel.app/contabilidad" },
     { "source": "/contabilidad/:path*", "destination": "https://atrion-core.vercel.app/contabilidad/:path*" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api|contabilidad|@|_|.*\\..*).*)",
+      "destination": "/index.html"
+    }
   ]
 }

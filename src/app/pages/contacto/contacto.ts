@@ -1,13 +1,21 @@
-/* =========================================================
-  IMPORTACIONES
-========================================================= */
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-/* =========================================================
-  CONFIGURACIÓN DEL COMPONENTE
-========================================================= */
+interface ContactFormModel {
+  reason: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company: string;
+  position: string;
+  location: string;
+  city: string;
+  message: string;
+  website: string;
+}
+
 @Component({
   selector: 'app-contacto',
   standalone: true,
@@ -16,41 +24,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './contacto.css'
 })
 export class ContactoComponent {
+  form: ContactFormModel = this.createEmptyForm();
 
-  /* =========================================================
-    MODELO DEL FORMULARIO
-  ========================================================= */
-  form = {
-    reason: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company: '',
-    position: '',
-    location: '',
-    city: '',
-    message: ''
-  };
-
-  /* =========================================================
-    OPCIONES DEL SELECT PERSONALIZADO
-  ========================================================= */
-  reasonOptions: string[] = [
+  readonly reasonOptions: string[] = [
+    'Chatbots y automatización IA',
+    'Software empresarial',
+    'Páginas web',
     'Software a la medida',
-    'Inteligencia artificial',
-    'Automatización',
-    'Analítica de datos',
-    'Chatbots',
-    'Licenciamiento',
-    'Soporte o asesoría',
     'Otro'
   ];
 
-  /* =========================================================
-    ESTADO DEL SELECT PERSONALIZADO
-  ========================================================= */
   isReasonOpen = false;
+  isLoading = false;
+  submitState: 'idle' | 'success' | 'error' = 'idle';
 
   toggleReasonDropdown(): void {
     this.isReasonOpen = !this.isReasonOpen;
@@ -61,31 +47,27 @@ export class ContactoComponent {
     this.isReasonOpen = false;
   }
 
+  handleReasonKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      this.isReasonOpen = false;
+      return;
+    }
+
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.isReasonOpen = true;
+    }
+  }
+
   @HostListener('document:click')
   closeReasonDropdown(): void {
     this.isReasonOpen = false;
   }
 
-  /* =========================================================
-    ESTADOS DE ENVÍO
-  ========================================================= */
-  isLoading = false;
-  submitState: 'idle' | 'success' | 'error' = 'idle';
-  clientEmail = '';
-
-  /* =========================================================
-    ENVÍO DE SOLICITUD
-  ========================================================= */
   async sendRequest(): Promise<void> {
-    if (
-      !this.form.reason ||
-      !this.form.firstName ||
-      !this.form.lastName ||
-      !this.form.email ||
-      !this.form.phone ||
-      !this.form.location ||
-      !this.form.message
-    ) {
+    if (this.isLoading) return;
+    if (!this.hasValidRequiredValues()) {
+      this.submitState = 'error';
       return;
     }
 
@@ -93,17 +75,16 @@ export class ContactoComponent {
     this.submitState = 'idle';
 
     try {
-      const res = await fetch('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...this.form })
+        body: JSON.stringify(this.form)
       });
 
-      if (!res.ok) throw new Error('Error en el servidor');
+      if (!response.ok) throw new Error('La solicitud no pudo completarse.');
 
-      this.clientEmail = this.form.email;
       this.submitState = 'success';
-      this.resetForm();
+      this.form = this.createEmptyForm();
     } catch {
       this.submitState = 'error';
     } finally {
@@ -111,11 +92,35 @@ export class ContactoComponent {
     }
   }
 
-  private resetForm(): void {
-    this.form = {
-      reason: '', firstName: '', lastName: '', email: '',
-      phone: '', company: '', position: '', location: '', city: '', message: ''
-    };
+  private hasValidRequiredValues(): boolean {
+    const email = this.form.email.trim();
+    const phone = this.form.phone.trim();
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(email);
+    const phoneDigits = phone.replace(/\D/gu, '');
+    const validPhone =
+      !phone || (/^\+?[0-9\s().-]+$/u.test(phone) && phoneDigits.length >= 7 && phoneDigits.length <= 15);
+
+    return Boolean(
+      this.form.firstName.trim() &&
+        validEmail &&
+        this.form.message.trim() &&
+        validPhone
+    );
   }
 
+  private createEmptyForm(): ContactFormModel {
+    return {
+      reason: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      company: '',
+      position: '',
+      location: '',
+      city: '',
+      message: '',
+      website: ''
+    };
+  }
 }
