@@ -1,193 +1,142 @@
-/* =========================================================
-  IMPORTACIONES
-========================================================= */
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-/* =========================================================
-  CONFIGURACIÓN DEL COMPONENTE
-========================================================= */
 @Component({
   selector: 'app-asesorias',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './asesorias.html',
-  styleUrl: './asesorias.css'
+  styleUrl: './asesorias.css',
 })
-export class Asesorias {
+export class Asesorias implements AfterViewInit, OnDestroy {
+  private revealObserver?: IntersectionObserver;
 
-  /* =========================================================
-    CORREO DE CONTACTO
-  ========================================================= */
-  private readonly contactEmail = 'atrionsystems@gmail.com';
-
-  /* =========================================================
-    TARJETAS INTRODUCTORIAS
-  ========================================================= */
   audiences = [
     {
-      icon: '🏛️',
+      number: '01',
       title: 'Federaciones y gremios',
       description:
-        'Participamos en encuentros empresariales para orientar a sus afiliados sobre transformación digital, IA, software y automatización.'
-    },
-    {
-      icon: '🏢',
-      title: 'Empresas',
-      description:
-        'Acompañamos equipos directivos y operativos para identificar procesos que pueden mejorar mediante tecnología.'
-    },
-    {
-      icon: '🎤',
-      title: 'Ferias y eventos',
-      description:
-        'Asistimos como expositores, conferencistas o aliados tecnológicos en espacios de networking y formación empresarial.'
-    },
-    {
-      icon: '👥',
-      title: 'Personas y emprendedores',
-      description:
-        'Brindamos asesoría práctica para quienes desean digitalizar ideas, automatizar tareas o lanzar soluciones digitales.'
-    }
-  ];
-
-  /* =========================================================
-    LÍNEAS DE ASESORÍA
-  ========================================================= */
-  services = [
-    {
-      number: '01',
-      icon: '🤖',
-      title: 'Charlas sobre inteligencia artificial',
-      description:
-        'Explicamos cómo la IA puede aplicarse en empresas reales sin tecnicismos innecesarios y con ejemplos prácticos.',
-      points: [
-        'IA para productividad empresarial',
-        'Automatización con asistentes inteligentes',
-        'Casos de uso por sector económico'
-      ]
+        'Orientamos a sus afiliados sobre transformación digital, IA, software y automatización.',
     },
     {
       number: '02',
-      icon: '⚙️',
-      title: 'Asesoría en automatización de procesos',
+      title: 'Empresas',
       description:
-        'Ayudamos a detectar tareas repetitivas que pueden optimizarse mediante flujos digitales, software o integraciones.',
-      points: [
-        'Mapeo de procesos actuales',
-        'Identificación de cuellos de botella',
-        'Propuestas de automatización'
-      ]
+        'Acompañamos equipos directivos y operativos para detectar oportunidades tecnológicas.',
     },
     {
       number: '03',
-      icon: '💻',
-      title: 'Consultoría en software empresarial',
+      title: 'Ferias y eventos',
       description:
-        'Orientamos a empresas que necesitan páginas web, plataformas, sistemas internos, dashboards o soluciones a medida.',
-      points: [
-        'Software a la medida',
-        'Páginas web profesionales',
-        'Sistemas para gestión interna'
-      ]
+        'Participamos como expositores, conferencistas o aliados en espacios empresariales.',
     },
     {
       number: '04',
-      icon: '📊',
+      title: 'Personas y emprendedores',
+      description:
+        'Convertimos ideas, tareas y necesidades en una ruta digital práctica y alcanzable.',
+    },
+  ];
+
+  advisoryLines = [
+    {
+      number: '01',
+      title: 'Charlas sobre inteligencia artificial',
+      description:
+        'Explicamos cómo aplicar IA en empresas reales, con lenguaje claro y ejemplos prácticos.',
+      points: ['IA para productividad', 'Asistentes inteligentes', 'Casos de uso por sector'],
+    },
+    {
+      number: '02',
+      title: 'Automatización de procesos',
+      description:
+        'Detectamos tareas repetitivas y oportunidades para conectar flujos, software e integraciones.',
+      points: ['Mapeo de procesos', 'Cuellos de botella', 'Ruta de automatización'],
+    },
+    {
+      number: '03',
+      title: 'Consultoría en software empresarial',
+      description:
+        'Orientamos decisiones sobre plataformas, sistemas internos, dashboards y soluciones a medida.',
+      points: ['Software a medida', 'Plataformas web', 'Sistemas de gestión'],
+    },
+    {
+      number: '04',
       title: 'Datos e inteligencia de negocio',
       description:
-        'Mostramos cómo convertir información empresarial en indicadores, reportes y decisiones estratégicas.',
-      points: [
-        'Dashboards ejecutivos',
-        'Análisis de datos empresariales',
-        'Indicadores para toma de decisiones'
-      ]
+        'Convertimos información empresarial en indicadores, reportes y decisiones estratégicas.',
+      points: ['Dashboards ejecutivos', 'Análisis de datos', 'Indicadores de gestión'],
     },
     {
       number: '05',
-      icon: '💬',
       title: 'Chatbots y atención inteligente',
       description:
-        'Presentamos soluciones para mejorar la atención al cliente mediante asistentes virtuales y canales automatizados.',
-      points: [
-        'Chatbots para WhatsApp o web',
-        'Atención automatizada',
-        'Captura de clientes potenciales'
-      ]
+        'Exploramos soluciones para mejorar la atención mediante asistentes y canales automatizados.',
+      points: ['WhatsApp y web', 'Atención automatizada', 'Captación de prospectos'],
     },
     {
       number: '06',
-      icon: '🚀',
-      title: 'Diagnóstico digital para empresas',
+      title: 'Diagnóstico digital',
       description:
-        'Realizamos sesiones para entender el estado tecnológico de una organización y proponer una ruta de mejora.',
-      points: [
-        'Evaluación inicial',
-        'Priorización de oportunidades',
-        'Ruta tecnológica recomendada'
-      ]
-    }
+        'Evaluamos el estado tecnológico de la organización y proponemos prioridades de mejora.',
+      points: ['Evaluación inicial', 'Priorización', 'Hoja de ruta tecnológica'],
+    },
   ];
 
-  /* =========================================================
-    PROCESO DE TRABAJO
-  ========================================================= */
   process = [
     {
       number: '01',
-      title: 'Escuchamos la necesidad',
-      description:
-        'Entendemos el tipo de evento, público objetivo, sector empresarial y propósito de la organización.'
+      title: 'Escuchamos',
+      description: 'Entendemos el espacio, su audiencia y el objetivo de la organización.',
     },
     {
       number: '02',
-      title: 'Diseñamos la sesión',
-      description:
-        'Creamos una propuesta de charla, asesoría o participación adaptada al perfil de los asistentes.'
+      title: 'Diseñamos',
+      description: 'Creamos una sesión o diagnóstico adaptado al contexto real.',
     },
     {
       number: '03',
-      title: 'Participamos en el espacio',
-      description:
-        'Asistimos al evento, feria o reunión con una presentación clara, profesional y enfocada en valor.'
+      title: 'Compartimos',
+      description: 'Facilitamos una experiencia clara, útil y orientada a decisiones.',
     },
     {
       number: '04',
-      title: 'Proponemos soluciones',
-      description:
-        'Después del encuentro, podemos acompañar a las empresas interesadas con diagnósticos, proyectos o servicios específicos.'
-    }
+      title: 'Proponemos',
+      description: 'Entregamos próximos pasos y oportunidades concretas de implementación.',
+    },
   ];
 
-  /* =========================================================
-    ABRIR CORREO CON SOLICITUD
-  ========================================================= */
-  openMail(subject: string): void {
-    const emailSubject = encodeURIComponent(`Atrion Systems - ${subject}`);
+  constructor(private readonly host: ElementRef<HTMLElement>) {}
 
-    const body = encodeURIComponent(
-      `Hola Atrion Systems,\n\n` +
-      `Estoy interesado/a en recibir información sobre:\n\n` +
-      `${subject}\n\n` +
-      `Tipo de organización:\n` +
-      `Nombre de la empresa/federación:\n` +
-      `Nombre de contacto:\n` +
-      `Teléfono:\n` +
-      `Ciudad:\n` +
-      `Mensaje:\n\n` +
-      `Quedo atento/a.`
+  ngAfterViewInit(): void {
+    const elements = this.host.nativeElement.querySelectorAll<HTMLElement>('[data-reveal]');
+    elements.forEach((element) => element.classList.add('reveal-ready'));
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach((element) => element.classList.add('is-visible'));
+      return;
+    }
+
+    this.revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            this.revealObserver?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
     );
-
-    window.location.href = `mailto:${this.contactEmail}?subject=${emailSubject}&body=${body}`;
+    elements.forEach((element) => this.revealObserver?.observe(element));
   }
 
-  /* =========================================================
-    MANEJO DE ERROR EN IMAGEN PRINCIPAL
-  ========================================================= */
   onImageError(event: Event): void {
-    const image = event.target as HTMLImageElement;
-    image.classList.add('img-error');
-    image.style.display = 'none';
+    (event.target as HTMLImageElement).classList.add('is-hidden');
+  }
+
+  ngOnDestroy(): void {
+    this.revealObserver?.disconnect();
   }
 }

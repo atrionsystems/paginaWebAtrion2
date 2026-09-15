@@ -11,26 +11,19 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: linear-gradient(
-    180deg,
-    rgba(2, 7, 51, calc(var(--header-progress) * 0.82)) 0%,
-    rgba(2, 7, 51, calc(var(--header-progress) * 0.66)) 100%
-  );
+  background: linear-gradient(180deg, rgba(2, 7, 51, 0.94) 0%, rgba(2, 7, 51, 0.78) 100%);
   backdrop-filter: blur(calc(var(--header-progress) * 16px));
   -webkit-backdrop-filter: blur(calc(var(--header-progress) * 16px));
-  border-bottom: 1px solid rgba(67, 18, 248, calc(var(--header-progress) * 0.1));
+  border-bottom: 1px solid rgba(227, 222, 255, 0.12);
   box-shadow:
-    0 calc(var(--header-progress) * 8px) calc(var(--header-progress) * 26px) rgba(2, 7, 51, calc(var(--header-progress) * 0.22)),
-    0 0 calc(var(--header-progress) * 18px) rgba(67, 18, 248, calc(var(--header-progress) * 0.06));
+    0 8px 26px rgba(2, 7, 51, 0.22),
+    0 0 18px rgba(67, 18, 248, 0.06);
   overflow: hidden;
   will-change: background, backdrop-filter, box-shadow, border-color;
-  animation: headerEnter 0.9s ease-out forwards;
 }
 
-
-
 .header-wrap::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background:
@@ -41,11 +34,7 @@
       transparent 82%,
       rgba(67, 18, 248, 0.04)
     ),
-    linear-gradient(
-      180deg,
-      rgba(227, 222, 255, 0.03),
-      transparent 50%
-    );
+    linear-gradient(180deg, rgba(227, 222, 255, 0.03), transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -258,7 +247,7 @@
 }
 
 .nav a::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 22px;
@@ -285,7 +274,7 @@
 }
 
 .nav a::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: 18px;
@@ -294,11 +283,11 @@
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(227, 222, 255,0.02) 0%,
+    rgba(227, 222, 255, 0.02) 0%,
     #e3deff 24%,
     #4312f8 55%,
     #e3deff 84%,
-    rgba(227, 222, 255,0.08) 100%
+    rgba(227, 222, 255, 0.08) 100%
   );
   transform: scaleX(0);
   transform-origin: center;
@@ -338,19 +327,22 @@
 }
 
 .primary-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   text-decoration: none;
-  padding: 14px 28px;
-  border-radius: 999px;
+  padding: 0;
   font-family: var(--font-text) !important;
   font-size: 0.85rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--atrion-white);
-  border: 1px solid rgba(227, 222, 255, 0.14);
-  background: var(--atrion-gradient-cta);
-  box-shadow:
-    0 12px 26px rgba(34, 2, 102, 0.28),
-    0 0 24px rgba(67, 18, 248, 0.14);
+  color: #a990ff;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 400;
+  text-shadow: none;
   transition:
     padding 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     font-size 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -361,22 +353,35 @@
   cursor: pointer;
 }
 
+.primary-btn::after {
+  content: '↗';
+  position: static;
+  color: #a990ff;
+  font-size: 1.05em;
+  line-height: 1;
+  transform: translate(0, 0);
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
 .header-wrap.scrolled .primary-btn {
-  padding:
-    calc(14px - (2px * var(--header-progress)))
-    calc(28px - (6px * var(--header-progress)));
+  padding: 0;
   font-size: calc(0.85rem - (0.08rem * var(--header-progress)));
-  box-shadow:
-    0 10px 20px rgba(34, 2, 102, 0.24),
-    0 0 18px rgba(67, 18, 248, 0.1);
+  box-shadow: none;
 }
 
 .primary-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.06);
-  box-shadow:
-    0 16px 34px rgba(34, 2, 102, 0.34),
-    0 0 28px rgba(67, 18, 248, 0.18);
+  color: #fff;
+  transform: translateY(-1px);
+  filter: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.primary-btn:hover::after {
+  color: #fff;
+  transform: translate(3px, -3px);
 }
 
 .header-line {
@@ -511,6 +516,61 @@
   }
 }
 
+/* En tablet hay espacio suficiente para mantener el header en una sola fila.
+   Evita que el bloque fijo crezca y se superponga al inicio de cada página. */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .header,
+  .header-wrap.scrolled .header {
+    grid-template-columns: minmax(118px, 0.8fr) auto minmax(112px, 0.8fr);
+    min-height: calc(86px - (14px * var(--header-progress)));
+    padding: 0 24px;
+    gap: 18px;
+  }
+
+  .brand {
+    justify-content: flex-start;
+  }
+
+  .brand-logo-img {
+    width: calc(132px - (16px * var(--header-progress)));
+    max-height: calc(52px - (8px * var(--header-progress)));
+  }
+
+  .nav,
+  .header-wrap.scrolled .nav {
+    flex-wrap: nowrap;
+    gap: 22px;
+  }
+
+  .nav a,
+  .header-wrap.scrolled .nav a {
+    height: calc(86px - (14px * var(--header-progress)));
+    padding: 0;
+    font-size: calc(0.68rem - (0.03rem * var(--header-progress)));
+    letter-spacing: 0.12em;
+  }
+
+  .nav a::before,
+  .header-wrap.scrolled .nav a::before {
+    bottom: 18px;
+  }
+
+  .nav a::after,
+  .header-wrap.scrolled .nav a::after {
+    bottom: 14px;
+  }
+
+  .header-actions {
+    justify-content: flex-end;
+  }
+
+  .primary-btn,
+  .header-wrap.scrolled .primary-btn {
+    font-size: calc(0.68rem - (0.03rem * var(--header-progress)));
+    letter-spacing: 0.1em;
+  }
+}
+
 /* =========================================================
    LOGO ATRION SYSTEMS
 ========================================================= */
@@ -620,12 +680,12 @@
 
   .primary-btn {
     font-size: 0.55rem;
-    padding: 10px 16px;
+    padding: 0;
     letter-spacing: 0.12em;
   }
 
   .header-wrap.scrolled .primary-btn {
-    padding: 9px 14px;
+    padding: 0;
     font-size: 0.5rem;
   }
 }
@@ -688,11 +748,11 @@
 
   .primary-btn {
     font-size: 0.5rem;
-    padding: 9px 14px;
+    padding: 0;
   }
 
   .header-wrap.scrolled .primary-btn {
-    padding: 8px 12px;
+    padding: 0;
     font-size: 0.48rem;
   }
 }

@@ -1,313 +1,130 @@
-<!-- =========================================================
-  PÁGINA DE CONTACTO - ATRION SYSTEMS
-========================================================= -->
-<section class="contact-page">
+<main class="contact-page">
+  <div class="contact-shell">
+    <section class="contact-intro" aria-labelledby="contact-title">
+      <p class="section-kicker"><span aria-hidden="true"></span> Contacto</p>
+      <h1 id="contact-title">Tu próximo paso empieza con una <strong>conversación.</strong></h1>
+      <p class="intro-copy">
+        Cuéntanos sobre tu proyecto, tus objetivos y los desafíos que enfrentas. Nuestro equipo
+        revisará tu solicitud y se pondrá en contacto contigo por correo para entender mejor tu
+        necesidad y brindarte una mejor respuesta.
+      </p>
+    </section>
 
-  <!-- =========================================================
-    FONDO DECORATIVO
-  ========================================================= -->
-  <div class="bg-blur blur-1"></div>
-  <div class="bg-blur blur-2"></div>
-  <div class="bg-grid"></div>
-
-  <!-- =========================================================
-    ENCABEZADO PRINCIPAL
-  ========================================================= -->
-  <header class="contact-header">
-    <span class="small-label">ATRION SYSTEMS</span>
-
-    <h1>Contáctanos</h1>
-
-    <p>
-      Déjanos tu información y cuéntanos qué necesitas. Nuestro equipo revisará
-      tu solicitud y se pondrá en contacto contigo por correo.
-    </p>
-  </header>
-
-  <!-- =========================================================
-    CONTENIDO PRINCIPAL
-  ========================================================= -->
-  <div class="contact-layout">
-
-    <!-- =========================================================
-      COLUMNA IZQUIERDA - FORMULARIO
-    ========================================================= -->
-    <div class="form-panel">
-
-      <!-- Título interno del formulario -->
-      <div class="panel-top">
-        <span class="panel-kicker">Solicitud de información</span>
-
-        <h2>Cuéntanos tu proyecto</h2>
-
+    <section class="form-column" aria-labelledby="form-title">
+      <div class="form-heading">
+        <p class="form-kicker">Solicitud de información</p>
+        <h2 id="form-title">Cuéntanos tu proyecto</h2>
         <p>
-          Completa el formulario con tus datos. Entre más información nos compartas,
-          mejor podremos entender tu necesidad y brindarte una mejor respuesta.
+          Completa el formulario con tus datos. Entre más información nos compartas, mejor podremos
+          entender tu necesidad y brindarte una mejor respuesta.
         </p>
       </div>
 
-      <!-- Formulario -->
-      <form class="contact-form" (ngSubmit)="sendRequest()" #contactForm="ngForm">
-
-        <!-- Campo personalizado: motivo de consulta -->
-        <div class="form-group full">
-          <label>Motivo de tu consulta *</label>
-
-          <div
-            class="custom-select"
-            [class.open]="isReasonOpen"
-            (click)="$event.stopPropagation(); toggleReasonDropdown()"
-          >
-            <div class="custom-select-value" [class.placeholder]="!form.reason">
-              <span>{{ form.reason || 'Selecciona una opción' }}</span>
-              <span class="custom-arrow">⌄</span>
-            </div>
-
-            <div class="custom-options" *ngIf="isReasonOpen">
-              <button
-                type="button"
-                *ngFor="let option of reasonOptions"
-                [class.active]="form.reason === option"
-                (click)="selectReason(option); $event.stopPropagation()"
-              >
-                {{ option }}
-              </button>
-            </div>
+      <form class="contact-form" (ngSubmit)="sendRequest(contactForm)" #contactForm="ngForm" novalidate>
+        <div class="form-field form-field-full">
+          <label for="reason">Motivo de consulta <span aria-hidden="true">*</span></label>
+          <div class="select-wrap" [class.field-invalid]="reason.invalid && (reason.touched || hasSubmitted)">
+            <select id="reason" name="reason" [(ngModel)]="form.reason" #reason="ngModel" required aria-required="true" [attr.aria-invalid]="reason.invalid && (reason.touched || hasSubmitted)" [attr.aria-describedby]="reason.invalid && (reason.touched || hasSubmitted) ? 'reason-error' : null">
+              <option value="" disabled>Selecciona una opción</option>
+              <option *ngFor="let option of reasonOptions" [value]="option">{{ option }}</option>
+            </select>
           </div>
+          <p class="field-error" id="reason-error" *ngIf="reason.invalid && (reason.touched || hasSubmitted)">Selecciona un motivo de consulta.</p>
         </div>
 
-        <!-- Campos principales -->
         <div class="form-grid">
+          <div class="form-field">
+            <label for="firstName">Nombre <span aria-hidden="true">*</span></label>
+            <input id="firstName" name="firstName" type="text" [(ngModel)]="form.firstName" #firstName="ngModel" placeholder="Ingresa tu nombre" required aria-required="true" [attr.aria-invalid]="firstName.invalid && (firstName.touched || hasSubmitted)" [attr.aria-describedby]="firstName.invalid && (firstName.touched || hasSubmitted) ? 'firstName-error' : null" />
+            <p class="field-error" id="firstName-error" *ngIf="firstName.invalid && (firstName.touched || hasSubmitted)">Ingresa tu nombre.</p>
+          </div>
+          <div class="form-field">
+            <label for="lastName">Apellido <span aria-hidden="true">*</span></label>
+            <input id="lastName" name="lastName" type="text" [(ngModel)]="form.lastName" #lastName="ngModel" placeholder="Ingresa tu apellido" required aria-required="true" [attr.aria-invalid]="lastName.invalid && (lastName.touched || hasSubmitted)" [attr.aria-describedby]="lastName.invalid && (lastName.touched || hasSubmitted) ? 'lastName-error' : null" />
+            <p class="field-error" id="lastName-error" *ngIf="lastName.invalid && (lastName.touched || hasSubmitted)">Ingresa tu apellido.</p>
+          </div>
+          <div class="form-field">
+            <label for="email">Correo electrónico <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" [(ngModel)]="form.email" #email="ngModel" placeholder="ejemplo@correo.com" required email aria-required="true" autocomplete="email" [attr.aria-invalid]="email.invalid && (email.touched || hasSubmitted)" [attr.aria-describedby]="email.invalid && (email.touched || hasSubmitted) ? 'email-error' : null" />
+            <p class="field-error" id="email-error" *ngIf="email.invalid && (email.touched || hasSubmitted)">Ingresa un correo electrónico válido.</p>
+          </div>
+          <div class="form-field">
+            <label for="phone">Teléfono <span aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="tel" [(ngModel)]="form.phone" #phone="ngModel" placeholder="Tu número de contacto" required aria-required="true" autocomplete="tel" [attr.aria-invalid]="phone.invalid && (phone.touched || hasSubmitted)" [attr.aria-describedby]="phone.invalid && (phone.touched || hasSubmitted) ? 'phone-error' : null" />
+            <p class="field-error" id="phone-error" *ngIf="phone.invalid && (phone.touched || hasSubmitted)">Ingresa tu número de contacto.</p>
+          </div>
+        </div>
 
-          <div class="form-group">
-            <label for="firstName">Nombre *</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                [(ngModel)]="form.firstName"
-                placeholder="Ingresa tu nombre"
-                required
-              />
+        <fieldset class="optional-group">
+          <legend>Información adicional <span>(opcional)</span></legend>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="company">Empresa</label>
+              <input id="company" name="company" type="text" [(ngModel)]="form.company" placeholder="Nombre de la empresa" autocomplete="organization" />
+            </div>
+            <div class="form-field">
+              <label for="position">Cargo</label>
+              <input id="position" name="position" type="text" [(ngModel)]="form.position" placeholder="Tu cargo o rol" autocomplete="organization-title" />
             </div>
           </div>
+        </fieldset>
 
-          <div class="form-group">
-            <label for="lastName">Apellido *</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                [(ngModel)]="form.lastName"
-                placeholder="Ingresa tu apellido"
-                required
-              />
-            </div>
+        <div class="form-grid location-grid">
+          <div class="form-field">
+            <label for="location">País / Ubicación <span aria-hidden="true">*</span></label>
+            <input id="location" name="location" type="text" [(ngModel)]="form.location" #location="ngModel" placeholder="Ej. Colombia" required aria-required="true" autocomplete="country-name" [attr.aria-invalid]="location.invalid && (location.touched || hasSubmitted)" [attr.aria-describedby]="location.invalid && (location.touched || hasSubmitted) ? 'location-error' : null" />
+            <p class="field-error" id="location-error" *ngIf="location.invalid && (location.touched || hasSubmitted)">Ingresa tu país o ubicación.</p>
           </div>
-
-          <div class="form-group">
-            <label for="email">Correo electrónico *</label>
-            <div class="input-shell">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                [(ngModel)]="form.email"
-                placeholder="ejemplo@correo.com"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Teléfono *</label>
-            <div class="input-shell">
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                [(ngModel)]="form.phone"
-                placeholder="Tu número de contacto"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="company">Empresa</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="company"
-                name="company"
-                [(ngModel)]="form.company"
-                placeholder="Nombre de la empresa"
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="position">Cargo</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="position"
-                name="position"
-                [(ngModel)]="form.position"
-                placeholder="Tu cargo o rol"
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="location">País / Ubicación *</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="location"
-                name="location"
-                [(ngModel)]="form.location"
-                placeholder="Ej. Colombia"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
+          <div class="form-field">
             <label for="city">Ciudad</label>
-            <div class="input-shell">
-              <input
-                type="text"
-                id="city"
-                name="city"
-                [(ngModel)]="form.city"
-                placeholder="Ej. Manizales"
-              />
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Comentario -->
-        <div class="form-group full">
-          <label for="message">Consulta o comentario *</label>
-
-          <div class="input-shell textarea-shell">
-            <textarea
-              id="message"
-              name="message"
-              [(ngModel)]="form.message"
-              rows="5"
-              placeholder="Cuéntanos qué necesitas, qué problema buscas resolver o qué tipo de solución te interesa..."
-              required
-            ></textarea>
+            <input id="city" name="city" type="text" [(ngModel)]="form.city" placeholder="Ej. Manizales" autocomplete="address-level2" />
           </div>
         </div>
 
-        <!-- Mensaje de éxito -->
-        <div class="submit-feedback success-msg" *ngIf="submitState === 'success'">
-          <span class="feedback-icon">✓</span>
-          <div>
-            <strong>¡Solicitud enviada!</strong>
-            <p>Recibimos tu mensaje. Te enviamos una confirmación a <em>{{ clientEmail }}</em>.</p>
-            <p class="spam-note">Si no ves el correo en unos minutos, revisa tu carpeta de <strong>spam o correo no deseado</strong>.</p>
-          </div>
+        <div class="form-field form-field-full message-field">
+          <label for="message">Consulta o comentario <span aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" [(ngModel)]="form.message" #message="ngModel" rows="5" placeholder="Cuéntanos qué necesitas, qué problema buscas resolver o qué tipo de solución te interesa..." required aria-required="true" [attr.aria-invalid]="message.invalid && (message.touched || hasSubmitted)" [attr.aria-describedby]="message.invalid && (message.touched || hasSubmitted) ? 'message-error' : null"></textarea>
+          <p class="field-error" id="message-error" *ngIf="message.invalid && (message.touched || hasSubmitted)">Cuéntanos brevemente cómo podemos ayudarte.</p>
         </div>
 
-        <!-- Mensaje de error -->
-        <div class="submit-feedback error-msg" *ngIf="submitState === 'error'">
-          <span class="feedback-icon">!</span>
-          <div>
-            <strong>Error al enviar</strong>
-            <p>Ocurrió un problema. Intenta de nuevo o escríbenos a <a href="mailto:atrionsystems@gmail.com">atrionsystems@gmail.com</a>.</p>
-          </div>
+        <div class="submit-feedback success-msg" role="status" *ngIf="submitState === 'success'">
+          <span class="material-symbols-outlined feedback-mark" aria-hidden="true">check_circle</span>
+          <div><strong>¡Solicitud enviada!</strong><p>Recibimos tu mensaje. Te enviamos una confirmación a <em>{{ clientEmail }}</em>.</p><p>Si no ves el correo, revisa tu carpeta de <strong>spam o correo no deseado</strong>.</p></div>
+        </div>
+        <div class="submit-feedback error-msg" role="alert" *ngIf="submitState === 'error'">
+          <span class="material-symbols-outlined feedback-mark" aria-hidden="true">error</span>
+          <div><strong>Error al enviar</strong><p>Ocurrió un problema. Intenta de nuevo o escríbenos a <a href="mailto:atrionsystems@gmail.com">atrionsystems@gmail.com</a>.</p></div>
         </div>
 
-        <!-- Botón -->
-        <div class="form-actions">
-          <button
-            type="submit"
-            class="primary-btn"
-            [disabled]="!contactForm.valid || !form.reason || isLoading"
-          >
-            <span *ngIf="!isLoading">Enviar solicitud</span>
-            <span *ngIf="isLoading" class="btn-loading">
-              <span class="spinner"></span> Enviando...
-            </span>
-          </button>
-        </div>
-
+        <button type="submit" class="submit-button" [disabled]="isLoading" [attr.aria-busy]="isLoading">
+          <span *ngIf="!isLoading">Enviar solicitud <span class="material-symbols-outlined submit-arrow" aria-hidden="true">arrow_forward</span></span>
+          <span *ngIf="isLoading" class="loading-label"><span class="spinner" aria-hidden="true"></span> Enviando...</span>
+        </button>
+        <p class="required-note"><span aria-hidden="true">*</span> Campos obligatorios</p>
       </form>
-    </div>
+    </section>
 
-    <!-- =========================================================
-      COLUMNA DERECHA - INFORMACIÓN DE APOYO
-    ========================================================= -->
-    <aside class="contact-side">
+    <aside class="contact-support" aria-label="Proceso y datos de contacto">
+      <ol class="process-list">
+        <li><span class="step-number">01</span><div><h2>Recibimos tu solicitud</h2><p>Registramos tu mensaje y lo agendamos para que sea revisado por nuestro equipo.</p></div></li>
+        <li><span class="step-number">02</span><div><h2>Analizamos tu necesidad</h2><p>Revisamos el contexto de tu solicitud, el tipo de solución que buscas y la mejor forma de ayudarte.</p></div></li>
+        <li><span class="step-number">03</span><div><h2>Te contactamos por correo</h2><p>Te responderemos con orientación, próximos pasos y, si aplica, una propuesta inicial de trabajo.</p></div></li>
+      </ol>
 
-      <!-- Tarjeta de proceso -->
-      <div class="side-card process-card">
-        <span class="side-label">Proceso</span>
-
-        <h3>Así trabajamos</h3>
-
-        <p class="side-intro">
-          Una vez recibamos tu solicitud, seguimos un proceso claro para entender
-          tu necesidad y darte una respuesta oportuna.
-        </p>
-
-        <div class="steps">
-
-          <div class="step-item">
-            <div class="step-number">01</div>
-
-            <div class="step-content">
-              <h4>Recibimos tu solicitud</h4>
-              <p>
-                Registramos tu mensaje y lo agendamos para que sea revisado por
-                nuestro equipo.
-              </p>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div class="step-number">02</div>
-
-            <div class="step-content">
-              <h4>Analizamos tu necesidad</h4>
-              <p>
-                Revisamos el contexto de tu solicitud, el tipo de solución que buscas
-                y la mejor forma de ayudarte.
-              </p>
-            </div>
-          </div>
-
-          <div class="step-item">
-            <div class="step-number">03</div>
-
-            <div class="step-content">
-              <h4>Te contactamos por correo</h4>
-              <p>
-                Te respondemos con orientación, próximos pasos y, si aplica, una
-                propuesta inicial de trabajo.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="process-note">
-          <span class="note-dot"></span>
-          <p>Atención clara, profesional y enfocada en tu proyecto.</p>
-        </div>
-
-        <div class="process-logo-space">
-          <img src="/imagenes/atrionlogo.png" alt="Atrion Systems" />
-        </div>
+      <div class="direct-contact">
+        <p>También puedes escribirnos directamente a</p>
+        <a href="mailto:atrionsystems@gmail.com"><span class="material-symbols-outlined" aria-hidden="true">mail</span>atrionsystems@gmail.com</a>
+      </div>
+      <div class="location">
+        <span class="material-symbols-outlined" aria-hidden="true">location_on</span>
+        <div><strong>Nuestra ubicación</strong><p>Manizales, Colombia</p></div>
       </div>
 
+      <div class="brand-decoration" aria-hidden="true">
+        <img src="/imagenes/isotipolineaatrion.png" alt="" />
+        <p class="brand-words">Ideas<br />Tecnología<br />Resultados</p>
+        <p class="brand-message"><span></span>Hablemos<br />de lo que viene</p>
+      </div>
     </aside>
   </div>
-</section>
+</main>

@@ -1,353 +1,350 @@
-<app-header></app-header>
-
-<!-- ################ INICIO HERO PRINCIPAL ATRION ################ -->
-<section class="hero" id="inicio">
-  <div class="hero-bg-grid"></div>
-  <div class="hero-glow hero-glow-one"></div>
-  <div class="hero-glow hero-glow-two"></div>
-
-  <div class="hero-fog" aria-hidden="true">
-    <img src="/imagenes/neblina.jpg" class="fog fog-1" alt="" />
-    <img src="/imagenes/neblina.jpg" class="fog fog-2" alt="" />
-    <img src="/imagenes/neblina.jpg" class="fog fog-3" alt="" />
-  </div>
-
-  <div class="hero-container">
-    <div class="hero-content">
-      <span class="hero-badge">AI • Software • Automation</span>
-
-      <h1>
-        Transformamos procesos
-        <span>en soluciones inteligentes.</span>
-      </h1>
-
+﻿<a class="skip-link" href="#inicio">Saltar al contenido</a>
+<main id="inicio">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Software · Automatización · Inteligencia artificial</p>
+      <h1 id="hero-title">Todo conectado.<br />Todo más simple.</h1>
+      <p class="description">
+        Software, automatización e inteligencia artificial para mejorar tu operación.
+      </p>
+      <div class="actions">
+        <a routerLink="/contacto" class="button primary"
+          >Hablemos de tu proyecto <span aria-hidden="true">→</span></a
+        ><a routerLink="/servicios" class="button secondary">Conoce las soluciones</a>
+      </div>
+    </div>
+    <figure class="solutions" aria-labelledby="demo-caption">
+      <div class="screens">
+        <article class="screen requests" aria-labelledby="requests-title">
+          <div class="screen-brand">
+            <img
+              src="/imagenes/home/atrion-logo.png"
+              alt="Atrion Systems"
+              width="65"
+              height="28"
+            /><span class="demo-tag">Demo</span>
+          </div>
+          <h2 id="requests-title">Solicitudes</h2>
+          <p class="subtitle">Gestiona y da seguimiento</p>
+          <button class="new-request" (click)="selectRequest('Nueva solicitud')">
+            ＋ Nueva solicitud
+          </button>
+          <div class="request-list">
+            <button (click)="selectRequest('Soporte técnico')">
+              <img src="/imagenes/home/chatbots.png" alt="" /><span
+                ><strong>Soporte técnico</strong><small>Reporta un caso</small></span
+              ><span aria-hidden="true">›</span>
+            </button>
+            <button (click)="selectRequest('Automatización')">
+              <img src="/imagenes/home/automatizacion.png" alt="" /><span
+                ><strong>Automatización</strong><small>Solicita un proceso</small></span
+              ><span aria-hidden="true">›</span>
+            </button>
+            <button (click)="selectRequest('Desarrollo')">
+              <img src="/imagenes/home/software.png" alt="" /><span
+                ><strong>Desarrollo</strong><small>Cuéntanos tu idea</small></span
+              ><span aria-hidden="true">›</span>
+            </button>
+          </div>
+          @if (created) {
+            <p class="demo-feedback" role="status">Ejemplo seleccionado: {{ selected }}.</p>
+          }
+        </article>
+        <article class="screen process" aria-labelledby="process-title">
+          <div class="screen-brand">
+            <img
+              src="/imagenes/home/atrion-logo.png"
+              alt="Atrion Systems"
+              width="65"
+              height="28"
+            /><span class="demo-tag">Demo</span>
+          </div>
+          <h2 id="process-title">Proceso</h2>
+          <p class="subtitle">{{ created ? selected : 'Tu solicitud en curso' }}</p>
+          <ol class="timeline">
+            <li class="done">
+              <span class="step" aria-hidden="true">✓</span>
+              <div>
+                <strong>Recibido</strong>
+                <p>Hemos recibido tu solicitud.</p>
+              </div>
+              <small>Hoy</small>
+            </li>
+            <li class="active">
+              <span class="step" aria-hidden="true">●</span>
+              <div>
+                <strong>En proceso</strong>
+                <p>Nuestro equipo está trabajando en ello.</p>
+              </div>
+              <small>Hoy</small>
+            </li>
+            <li>
+              <span class="step" aria-hidden="true">◆</span>
+              <div>
+                <strong>Completado</strong>
+                <p>Te notificaremos cuando esté listo.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="process-note">Nos enfocamos en una operación más simple y eficiente.</p>
+        </article>
+        <article class="screen assistant" aria-labelledby="assistant-title">
+          <div class="screen-brand">
+            <img
+              src="/imagenes/home/atrion-logo.png"
+              alt="Atrion Systems"
+              width="65"
+              height="28"
+            /><span class="demo-tag">Demo</span>
+          </div>
+          <h2 id="assistant-title">Asistente IA</h2>
+          <p class="subtitle">Tu aliado en el trabajo diario</p>
+          <p class="chat-question">¿Cómo puedo automatizar este proceso?</p>
+          <div class="chat-answer" aria-live="polite">
+            @if (answered) {
+              <p>
+                Esta es una demostración. Para explorar tu proceso, conversemos sobre las tareas que
+                realizas y las herramientas que utilizas.
+              </p>
+              <a routerLink="/contacto">Hablemos de tu caso →</a>
+            } @else {
+              <p>
+                Te puedo ayudar a automatizar la recopilación de datos, validar la información y
+                generar reportes automáticamente.
+              </p>
+              <p>¿Quieres que conversemos sobre tu caso?</p>
+            }
+          </div>
+          <form class="chat-form" (submit)="send($event)">
+            <input
+              aria-label="Mensaje para la demostración del asistente"
+              name="message"
+              [(ngModel)]="message"
+              placeholder="Escribe tu mensaje..."
+              maxlength="300"
+            /><button
+              type="submit"
+              aria-label="Enviar mensaje de demostración"
+              [disabled]="!message.trim()"
+            >
+              ↑
+            </button>
+          </form>
+        </article>
+      </div>
+      <figcaption id="demo-caption">Ejemplos de soluciones a medida</figcaption>
+    </figure>
+  </section>
+  <section class="about-section" id="conocenos" aria-labelledby="about-title" data-reveal>
+    <div class="about-heading">
+      <p class="section-kicker">Conócenos</p>
+      <h2 id="about-title">Software inteligente <span>para empresas que evolucionan.</span></h2>
+    </div>
+    <div class="about-content">
       <p>
-        En Atrion Systems desarrollamos software, automatización e inteligencia
-        artificial para empresas que buscan operar con más eficiencia,
-        precisión y visión tecnológica.
+        En Atrion Systems diseñamos soluciones de software orientadas a la automatización de
+        procesos y a la integración estratégica de inteligencia artificial en las organizaciones.
+      </p>
+      <p>
+        Desarrollamos tecnología que aporta orden, eficiencia y continuidad operativa: reducimos
+        tareas manuales, optimizamos la gestión interna y fortalecemos la relación con tus clientes.
+      </p>
+      <p>
+        Nuestro enfoque une innovación, precisión y visión práctica para crear soluciones
+        escalables, bien estructuradas y alineadas con las necesidades reales de cada negocio.
+      </p>
+      <div class="about-values" aria-label="Beneficios de trabajar con Atrion">
+        <span>Más orden</span><span>Más eficiencia</span><span>Más visión</span>
+      </div>
+    </div>
+  </section>
+  <section class="services" id="servicios" aria-labelledby="services-title" data-reveal>
+    <div class="section-inner">
+      <h2 id="services-title">La tecnología se adapta a tu empresa.</h2>
+      <div class="service-grid">
+        <a routerLink="/servicios" data-reveal data-reveal-delay="1"
+          ><img src="/imagenes/home/automatizacion.png" alt="" width="72" height="72" />
+          <div>
+            <h3>Automatización</h3>
+            <p>Procesos más eficientes<br />y sin fricción.</p>
+          </div></a
+        ><a routerLink="/servicios" data-reveal data-reveal-delay="2"
+          ><img src="/imagenes/home/inteligencia-artificial.png" alt="" width="72" height="72" />
+          <div>
+            <h3>Inteligencia artificial</h3>
+            <p>Decisiones más rápidas<br />y mejores resultados.</p>
+          </div></a
+        ><a routerLink="/servicios" data-reveal data-reveal-delay="3"
+          ><img src="/imagenes/home/software.png" alt="" width="72" height="72" />
+          <div>
+            <h3>Software a medida</h3>
+            <p>Soluciones que se ajustan<br />a tu operación.</p>
+          </div></a
+        >
+      </div>
+    </div>
+  </section>
+  <section class="capabilities" id="portafolio" aria-labelledby="capabilities-title" data-reveal>
+    <div class="section-heading">
+      <p class="section-kicker">Portafolio de servicios</p>
+      <h2 id="capabilities-title">Soluciones digitales para procesos reales de negocio.</h2>
+      <p>
+        Automatización, software e inteligencia artificial aplicados a decisiones y operaciones
+        concretas.
       </p>
     </div>
-
-    <div class="hero-code-card">
-      <div class="code-card-header">
-        <div class="code-dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <p>atrion.systems.ts</p>
-      </div>
-
-      <div class="code-content">
-        <pre><code><span class="code-purple">const</span> atrion = &#123;
-  <span class="code-blue">mission</span>: <span class="code-green">'Automate processes'</span>,
-  <span class="code-blue">focus</span>: [
-    <span class="code-green">'Artificial Intelligence'</span>,
-    <span class="code-green">'Custom Software'</span>,
-    <span class="code-green">'Business Automation'</span>
-  ],
-  <span class="code-blue">result</span>: <span class="code-green">'Smarter operations'</span>
-&#125;;
-
-<span class="code-purple">export</span> <span class="code-purple">default</span> atrion;</code></pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="scroll-indicator">
-    <span></span>
-  </div>
-</section>
-<!-- ################ FIN HERO PRINCIPAL ATRION ################ -->
-
-
-
-
-
-
-
-<!-- ################ INICIO SECCION CONOCENOS ################ -->
-<section class="about-us-section" id="conocenos">
-  <div class="about-gradient-shape" aria-hidden="true"></div>
-  <div class="about-gradient-shape shape-two" aria-hidden="true"></div>
-
-  <div class="about-us-container">
-    <div class="about-us-left">
-      <span class="about-us-tag">Conócenos</span>
-
-      <h2>
-        Software inteligente
-        <span>para empresas que evolucionan.</span>
-      </h2>
-    </div>
-
-    <div class="about-us-right">
-      <p>
-        En Atrion Systems diseñamos soluciones de software orientadas a la
-        automatización de procesos y a la integración estratégica de inteligencia
-        artificial en las organizaciones.
-      </p>
-
-      <p>
-        Desarrollamos tecnología que aporta orden, eficiencia y continuidad
-        operativa, ayudando a reducir tareas manuales, optimizar la gestión
-        interna y fortalecer la relación entre las empresas y sus clientes.
-      </p>
-
-      <p>
-        Nuestro enfoque une innovación, precisión y visión práctica para crear
-        soluciones escalables, bien estructuradas y alineadas con las necesidades
-        reales de cada negocio.
-      </p>
-    </div>
-  </div>
-</section>
-<!-- ################ FIN SECCION CONOCENOS ################ -->
-
-<!-- ################ INICIO SECCION PORTAFOLIO HOME ################ -->
-<section class="portfolio-preview-section" id="servicios">
-  <div class="portfolio-soft-glow glow-left"></div>
-  <div class="portfolio-soft-glow glow-right"></div>
-
-  <div class="portfolio-preview-container">
-    <div class="portfolio-preview-heading">
-      <span class="portfolio-kicker">Portafolio de servicios</span>
-
-      <h2>
-        Soluciones digitales
-        <span>para empresas inteligentes.</span>
-      </h2>
-
-      <p>
-        Automatización, software e inteligencia artificial aplicados a procesos
-        reales de negocio.
-      </p>
-    </div>
-
-    <div class="portfolio-services-grid">
-      <div class="portfolio-service-pill">
-        <small>01</small>
-        <p>Flujos operativos, tareas repetitivas y procesos conectados.</p>
-        <span>Automatización</span>
-      </div>
-
-      <div class="portfolio-service-pill">
-        <small>02</small>
-        <span>Machine Learning</span>
-        <p>Modelos predictivos para convertir datos en decisiones.</p>
-      </div>
-
-      <div class="portfolio-service-pill">
-        <span>Deep Learning</span>
-        <small>03</small>
-        <p>Soluciones avanzadas para patrones, se&ntilde;ales y alta complejidad.</p>
-      </div>
-
-      <div class="portfolio-service-pill">
-        <span>Computer Vision</span>
-        <small>04</small>
-        <p>An&aacute;lisis visual para detecci&oacute;n, inspecci&oacute;n y reconocimiento.</p>
-      </div>
-
-      <div class="portfolio-service-pill">
-        <span>NLP & IA Generativa</span>
-        <small>05</small>
-        <p>Asistentes, texto inteligente y automatizaci&oacute;n conversacional.</p>
-      </div>
-
-      <div class="portfolio-service-pill">
-        <span>Software a medida</span>
-        <small>06</small>
-        <p>Plataformas y herramientas dise&ntilde;adas para cada operaci&oacute;n.</p>
-      </div>
-    </div>
-
-    <div class="portfolio-preview-cta">
-      <p>Conoce el portafolio completo y descubre cómo podemos ayudarte.</p>
-
-      <a href="/portafolio" class="portfolio-main-btn">
-        Conocer portafolio
-        <span>→</span>
+    <div class="capability-grid">
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="1">
+        <span class="capability-number">01</span>
+        <h3>Automatización de procesos</h3>
+        <p>
+          Flujos conectados para reducir tareas repetitivas, mejorar la trazabilidad y operar con
+          mayor eficiencia.
+        </p>
+        <span class="capability-link">Ver solución →</span>
+      </a>
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="2">
+        <span class="capability-number">02</span>
+        <h3>Machine Learning y Deep Learning</h3>
+        <p>
+          Modelos para predicción, clasificación y análisis avanzado que convierten datos en
+          decisiones.
+        </p>
+        <span class="capability-link">Ver solución →</span>
+      </a>
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="3">
+        <span class="capability-number">03</span>
+        <h3>Computer Vision</h3>
+        <p>
+          Análisis visual para detección, inspección y reconocimiento en escenarios de alta
+          complejidad.
+        </p>
+        <span class="capability-link">Ver solución →</span>
+      </a>
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="1">
+        <span class="capability-number">04</span>
+        <h3>NLP e IA generativa</h3>
+        <p>
+          Asistentes, texto inteligente y automatización conversacional para atender y trabajar
+          mejor.
+        </p>
+        <span class="capability-link">Ver solución →</span>
+      </a>
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="2">
+        <span class="capability-number">05</span>
+        <h3>Software a medida</h3>
+        <p>
+          Plataformas y herramientas diseñadas para cada operación, con arquitectura lista para
+          crecer.
+        </p>
+        <span class="capability-link">Ver solución →</span>
+      </a>
+      <a routerLink="/servicios" class="capability-card" data-reveal data-reveal-delay="3">
+        <span class="capability-number">06</span>
+        <h3>Datos y dashboards empresariales</h3>
+        <p>
+          Indicadores claros, reportes ejecutivos y analítica para tomar decisiones con información
+          confiable.
+        </p>
+        <span class="capability-link">Ver solución →</span>
       </a>
     </div>
-  </div>
-</section>
-<!-- ################ FIN SECCION PORTAFOLIO HOME ################ -->
-
-<!-- =========================================================
-     SECCIÓN FILOSOFÍA
-========================================================= -->
-
-<section class="philosophy-section">
-  <div class="philosophy-glow philosophy-glow-1"></div>
-  <div class="philosophy-glow philosophy-glow-2"></div>
-
-  <div class="philosophy-container">
-    <div class="philosophy-header">
-      <span class="philosophy-kicker">Filosofía Atrion</span>
-
-      <h2>Nuestra Filosofía</h2>
-
+  </section>
+  <section class="philosophy-section" id="filosofia" aria-labelledby="philosophy-title" data-reveal>
+    <div class="section-heading">
+      <p class="section-kicker">Filosofía Atrion</p>
+      <h2 id="philosophy-title">Tecnología estratégica para empresas que buscan evolucionar.</h2>
       <p>
-        Construimos soluciones tecnológicas con propósito: claras, escalables y
-        alineadas con las necesidades reales de cada empresa.
+        Construimos soluciones claras, escalables y alineadas con las necesidades reales de cada
+        empresa.
       </p>
     </div>
-
-    <div class="philosophy-content">
-      <article class="philosophy-feature">
-        <span class="feature-label">Lo que nos guía</span>
-
-        <h3>
-          Tecnología estratégica para empresas que buscan evolucionar.
-        </h3>
-
+    <div class="philosophy-grid">
+      <article class="philosophy-lead" data-reveal data-reveal-delay="1">
+        <span class="mini-label">Lo que nos guía</span>
         <p>
-          En Atrion Systems entendemos la tecnología como una herramienta para
-          mejorar procesos, reducir cargas operativas y fortalecer la toma de
-          decisiones dentro de las organizaciones.
+          Entendemos la tecnología como una herramienta para mejorar procesos, reducir cargas
+          operativas y fortalecer la toma de decisiones.
         </p>
       </article>
-
-      <div class="philosophy-cards">
-        <article class="philosophy-card">
-          <span class="card-number">01</span>
-
-          <h3>Misión</h3>
-
-          <p>
-            Transformar la operatividad de las empresas mediante inteligencia
-            artificial, automatización y software estratégico, creando soluciones
-            que simplifican procesos y potencian el crecimiento empresarial.
-          </p>
-        </article>
-
-        <article class="philosophy-card">
-          <span class="card-number">02</span>
-
-          <h3>Visión</h3>
-
-          <p>
-            Consolidarnos como un aliado tecnológico estratégico en Manizales,
-            liderando el desarrollo de soluciones digitales escalables,
-            inteligentes y orientadas al futuro empresarial.
-          </p>
-        </article>
-      </div>
+      <article class="philosophy-card" data-reveal data-reveal-delay="2">
+        <span>01</span>
+        <h3>Misión</h3>
+        <p>
+          Transformar la operatividad de las empresas mediante inteligencia artificial,
+          automatización y software estratégico, simplificando procesos y potenciando el
+          crecimiento.
+        </p>
+      </article>
+      <article class="philosophy-card" data-reveal data-reveal-delay="3">
+        <span>02</span>
+        <h3>Visión</h3>
+        <p>
+          Consolidarnos como un aliado tecnológico estratégico en Manizales, liderando soluciones
+          digitales escalables, inteligentes y orientadas al futuro empresarial.
+        </p>
+      </article>
     </div>
-  </div>
-</section>
-
-<!-- ################ FIN SECCION FILOSOFIA ################ -->
-
-<!-- ################ INICIO SECCION POR QUE ELEGIRNOS ################ -->
-<section class="why-section" aria-labelledby="why-title">
-  <div class="why-beam why-beam-one" aria-hidden="true"></div>
-  <div class="why-beam why-beam-two" aria-hidden="true"></div>
-
-  <div class="why-container">
+  </section>
+  <section class="why-section" aria-labelledby="why-title" data-reveal>
     <div class="why-copy">
-      <span class="why-kicker">Por qu&eacute; Atrion</span>
-
-      <h2 id="why-title">
-        Tecnolog&iacute;a cercana,
-        <span>pensada para operar mejor.</span>
-      </h2>
-
+      <p class="section-kicker">Por qué Atrion</p>
+      <h2 id="why-title">Tecnología cercana, <span>pensada para operar mejor.</span></h2>
       <p>
-        Somos una empresa emergente apasionada por la innovaci&oacute;n tecnol&oacute;gica.
-        Dise&ntilde;amos soluciones personalizadas, mantenemos una comunicaci&oacute;n clara
-        y priorizamos las necesidades de cada cliente desde el primer diagn&oacute;stico
-        hasta la mejora continua.
+        Somos una empresa emergente apasionada por la innovación tecnológica. Diseñamos soluciones
+        personalizadas, mantenemos una comunicación clara y priorizamos tus necesidades desde el
+        diagnóstico hasta la mejora continua.
       </p>
-
-      <div class="why-points" aria-label="Forma de trabajo Atrion">
-        <span>Diagn&oacute;stico claro</span>
-        <span>Entrega iterativa</span>
-        <span>Soporte continuo</span>
+      <div class="work-pillars">
+        <span>Diagnóstico claro</span><span>Entrega iterativa</span><span>Soporte continuo</span>
       </div>
-
-      <a routerLink="/contacto" class="why-link">
-        Hablemos
-        <span aria-hidden="true">&rarr;</span>
-      </a>
+      <a routerLink="/contacto" class="text-link">Hablemos de tu proceso →</a>
     </div>
-
-    <div class="why-reasons-panel" aria-label="Razones para elegir Atrion Systems">
-      <div class="why-panel-heading">
-        <span>Valor Atrion</span>
-        <strong>Claridad, continuidad y mejora en cada soluci&oacute;n.</strong>
-      </div>
-
-      <div class="why-reasons-list">
-        <article class="why-reason">
-          <div class="reason-metric">
-            <span>24/7</span>
-          </div>
-
-          <div class="reason-copy">
-            <h3>Atenci&oacute;n al cliente</h3>
-            <p>Respuesta clara y acompa&ntilde;amiento para mantener continuidad operativa.</p>
-          </div>
-        </article>
-
-        <article class="why-reason">
-          <div class="reason-metric">
-            <span>100%</span>
-          </div>
-
-          <div class="reason-copy">
-            <h3>Compromiso personalizado</h3>
-            <p>Soluciones pensadas alrededor de tus procesos, objetivos y ritmo de trabajo.</p>
-          </div>
-        </article>
-
-        <article class="why-reason">
-          <div class="reason-metric">
-            <span>&infin;</span>
-          </div>
-
-          <div class="reason-copy">
-            <h3>Innovaci&oacute;n constante</h3>
-            <p>Mejoras iterativas para que la tecnolog&iacute;a siga aportando valor real.</p>
-          </div>
-        </article>
-      </div>
+    <div class="reason-grid" aria-label="Razones para elegir Atrion Systems">
+      <article data-reveal data-reveal-delay="1">
+        <strong>24/7</strong>
+        <h3>Atención al cliente</h3>
+        <p>Respuesta clara y acompañamiento para mantener continuidad operativa.</p>
+      </article>
+      <article data-reveal data-reveal-delay="2">
+        <strong>100%</strong>
+        <h3>Compromiso personalizado</h3>
+        <p>Soluciones pensadas alrededor de tus procesos, objetivos y ritmo de trabajo.</p>
+      </article>
+      <article data-reveal data-reveal-delay="3">
+        <strong>∞</strong>
+        <h3>Innovación constante</h3>
+        <p>Mejoras iterativas para que la tecnología siga aportando valor real.</p>
+      </article>
     </div>
+  </section>
+  <section class="closing" aria-labelledby="closing-title" data-reveal>
+    <h2 id="closing-title">Empecemos por tu proceso.</h2>
+    <p>Cuéntanos qué necesitas y conversemos sobre la mejor solución para tu empresa.</p>
+    <a routerLink="/contacto" class="button primary"
+      >Hablemos de tu proyecto <span aria-hidden="true">→</span></a
+    >
+  </section>
+</main>
+<footer class="home-footer">
+  <div>
+    <div class="home-footer-logos" aria-label="Registro y marca de Atrion Systems">
+      <img src="/imagenes/atrionlogo.png" alt="Atrion Systems" />
+      <img
+        src="/imagenes/camara%20y%20comecrico.webp"
+        alt="Registro de Atrion Systems en la Cámara de Comercio de Manizales por Caldas"
+      />
+    </div>
+    <span>Soluciones inteligentes de software, IA y automatización.</span>
   </div>
-</section>
-<!-- ################ FIN SECCION POR QUE ELEGIRNOS ################ -->
-
-<!-- ################ INICIO CIERRE HOME ################ -->
-<section class="home-final-cta" aria-labelledby="home-final-title">
-  <div class="home-final-cta-inner">
-    <div class="home-final-copy">
-      <span class="home-final-kicker">Siguiente paso</span>
-
-      <h2 id="home-final-title">
-        Convierte una necesidad operativa en una soluci&oacute;n lista para crecer.
-      </h2>
-
-      <p>
-        Cu&eacute;ntanos qu&eacute; proceso quieres mejorar y estructuramos contigo una ruta
-        clara para automatizar, integrar o construir la herramienta que necesitas.
-      </p>
-    </div>
-
-    <div class="home-final-action">
-      <div class="home-final-steps" aria-label="Ruta de trabajo">
-        <span>Diagn&oacute;stico</span>
-        <span>Propuesta</span>
-        <span>Implementaci&oacute;n</span>
-      </div>
-
-      <a routerLink="/contacto" class="home-final-btn">
-        Hablemos
-        <span aria-hidden="true">&rarr;</span>
-      </a>
-    </div>
+  <nav aria-label="Enlaces del pie de página">
+    <a routerLink="/servicios">Servicios</a><a routerLink="/asesorias">Asesorías</a
+    ><a routerLink="/contacto">Hablemos</a>
+  </nav>
+  <div class="footer-contact">
+    <span>Manizales, Colombia</span
+    ><a href="mailto:atrionsystems@gmail.com">atrionsystems@gmail.com</a
+    ><a href="tel:+573126876220">+57 312 6876220</a>
   </div>
-</section>
-<!-- ################ FIN CIERRE HOME ################ -->
-
-<app-footer></app-footer>
+  <small>© 2026 Atrion Systems. Todos los derechos reservados.</small>
+</footer>
